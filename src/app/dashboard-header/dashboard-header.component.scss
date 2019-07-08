@@ -1,0 +1,44 @@
+@import "../../styles/colors";
+@import "../../styles/vars";
+
+.nav-item {
+  padding: 10px;
+  a {
+    font-weight: 600;
+  }
+}
+
+.nav-link {
+  color: $white;
+
+  font-weight: 600;
+  @include appTransition();
+}
+
+.nav-link:hover {
+  color: rgba($color: $white, $alpha: 0.7);
+}
+
+.router-link-active {
+  color: $sharpYellow;
+}
+
+.dropdown-menu {
+  left: 0;
+  border: 0;
+  padding: 0;
+}
+
+.dropdown-item {
+  padding: 15px;
+  color: $white;
+  @include appTransition();
+}
+.dropdown-item:hover {
+  a {
+    color: rgba($color: $white, $alpha: 0.7);
+  }
+  background-color: transparent;
+  color: rgba($color: $white, $alpha: 0.7);
+  color: rgba($color: $white, $alpha: 0.7);
+}

@@ -1,0 +1,52 @@
+@import "colors";
+body {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.dark-text {
+  color: $mainPurpleDarker;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.right-text {
+  text-align: right;
+}
+
+.left-text {
+  text-align: left;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.route-heading {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.form-prompt {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 5px 0px;
+}
+
+.form-section-title {
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+
+  padding: 2px 0;
+}
+
+.form-section-subtitle {
+  display: block;
+  font-size: 12px;
+  font-style: italic;
+
+  padding: 2px 0;
+}

@@ -1,0 +1,135 @@
+<div class="bg-app container-fluid">
+  <div class="row">
+    <div class="col-lg-10 offset-lg-1">
+      <div class="page-content-holder bg-white animated fadeIn">
+        <div>
+          <span class="route-heading">New Agent Form</span>
+        </div>
+        <div class="form-row"></div>
+        <div class="col-lg-12">
+          <form [formGroup]="appForm">
+            <div class="row">
+              <div class="col-lg-6 col-xs-12">
+                <div class="form-row-app">
+                  <span class="form-section-title block">Personal Details</span>
+                  <span class="form-section-subtitle block"
+                    >Please fill this section with the agent's personal
+                    details</span
+                  >
+                </div>
+                <div class="form-row">
+                  <span class="form-prompt ">Full Name</span>
+                  <input
+                    type="text"
+                    placeholder="e.g Trust Ventures"
+                    formControlName="businessName"
+                    class="app-form-input"
+                  />
+                </div>
+                <div class="form-row">
+                  <span class="form-prompt ">Phone Number</span>
+                  <input
+                    type="text"
+                    placeholder="e.g James Milner"
+                    formControlName="businessName"
+                    class="app-form-input"
+                  />
+                </div>
+                <div class="form-row">
+                  <span class="form-prompt ">Email Address</span>
+                  <input
+                    type="text"
+                    placeholder="e.g email@email.com"
+                    formControlName="businessName"
+                    class="app-form-input"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6 col-xs-12">
+                <div class="form-row-app">
+                  <span class="form-section-title block">Contact Details</span>
+                  <span class="form-section-subtitle block"
+                    >Please fill this section with the agent's contact details
+                    with regards their place of operation</span
+                  >
+                </div>
+                <div class="form-row">
+                  <span class="form-prompt ">State </span>
+                  <select class="select-css bg-app-darker">
+                    <option [ngValue]="null" disabled>Choose State</option>
+                  </select>
+                </div>
+                <div class="form-row">
+                  <span class="form-prompt ">Local Government</span>
+                  <select class="select-css bg-app-darker">
+                    <option [ngValue]="null" disabled
+                      >Choose Local Government</option
+                    >
+                  </select>
+                </div>
+                <div class="form-row">
+                  <span class="form-prompt ">City</span>
+                  <input
+                    type="text"
+                    placeholder="e.g Asaba"
+                    formControlName="businessName"
+                    class="app-form-input"
+                  />
+                </div>
+                <div class="form-row">
+                  <span class="form-prompt ">Full Physical Address</span>
+                  <input
+                    type="text"
+                    placeholder="e.g No 7 okafor streeet, Asaba, Delta state"
+                    formControlName="businessName"
+                    class="app-form-input"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6 col-xs-12">
+                <div class="form-row-app">
+                  <span class="form-section-title block">Business Details</span>
+                  <span class="form-section-subtitle block"
+                    >Please fill this section with the agent's business details
+                    with regards their agency operation</span
+                  >
+                </div>
+
+                <div class="form-row">
+                  <span class="form-prompt ">Business Name</span>
+                  <input
+                    type="text"
+                    placeholder="e.g Trust Industries"
+                    formControlName="businessName"
+                    class="app-form-input"
+                  />
+                </div>
+                <div class="form-row">
+                  <span class="form-prompt ">Full Physical Address</span>
+                  <input
+                    type="text"
+                    placeholder="e.g No 7 okafor streeet, Asaba, Delta state"
+                    formControlName="businessName"
+                    class="app-form-input"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-12 col-xs-12 centered-flex">
+                <div class="form-row centered-flex" style="width:100%;">
+                  <button
+                    class="login-button uppercase bg-purp col-xs-12"
+                    [routerLink]="['dashboard']"
+                    routerLinkActive="router-link-active"
+                  >
+                    register agent
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- end of form -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

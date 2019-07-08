@@ -1,0 +1,126 @@
+<div class="container-fluid app-modal">
+  <form [formGroup]="appForm" (ngSubmit)="submitForm()">
+    <div class="row modal-header-row bg-purple">
+      <div class="col-lg-12">
+        <span class="modal-heading-text ">New User</span>
+        <span class="modal-heading-text   pull-right link-up" (click)="cancel()"
+          ><i class="fa fa-close"></i
+        ></span>
+      </div>
+    </div>
+    <div class="row form-row">
+      <div class="col-lg-12 col-xs-12">
+        <span class="form-prompt">First Name</span>
+        <input
+          class="modal-text-box"
+          formControlName="firstName"
+          type="text"
+          placeholder="First Name"
+        />
+        <span class="animated fadeIn" *ngIf="isSubmitted && firstName.invalid">
+          <span
+            class="error-text-purp-backdrop block"
+            *ngIf="firstName.errors.required"
+            >Please provide a first name</span
+          >
+        </span>
+      </div>
+    </div>
+    <div class="row form-row">
+      <div class="col-lg-12 col-xs-12">
+        <span class="form-prompt">Last Name</span>
+        <input
+          class="modal-text-box"
+          formControlName="lastName"
+          type="text"
+          placeholder="Last Name"
+        />
+        <span class="animated fadeIn" *ngIf="isSubmitted && lastName.invalid">
+          <span
+            class="error-text-purp-backdrop block"
+            *ngIf="lastName.errors.required"
+            >Please provide a last name</span
+          >
+        </span>
+      </div>
+    </div>
+    <div class="row form-row">
+      <div class="col-lg-6 col-xs-12">
+        <span class="form-prompt">Phone Number</span>
+        <input
+          class="modal-text-box"
+          type="text"
+          placeholder="Phone Number"
+          formControlName="phoneNumber"
+        />
+        <span
+          class="animated fadeIn"
+          *ngIf="isSubmitted && phoneNumber.invalid"
+        >
+          <span
+            class="error-text-purp-backdrop block"
+            *ngIf="phoneNumber.errors.required"
+            >Please provide a phone number</span
+          >
+          <span
+            class="error-text-purp-backdrop block"
+            *ngIf="phoneNumber.errors.pattern"
+            >Please provide valid phone number</span
+          >
+        </span>
+      </div>
+    </div>
+    <div class="row form-row">
+      <div class="col-lg-6 col-xs-12">
+        <span class="form-prompt">Email Address</span>
+        <input
+          class="modal-text-box"
+          type="text"
+          placeholder="Email Address"
+          formControlName="email"
+        />
+        <span class="animated fadeIn" *ngIf="isSubmitted && email.invalid">
+          <span
+            class="error-text-purp-backdrop block"
+            *ngIf="email.errors.required"
+            >Please provide an email address</span
+          >
+          <span
+            class="error-text-purp-backdrop block"
+            *ngIf="email.errors.pattern"
+            >Please provide a valid email address</span
+          >
+        </span>
+      </div>
+    </div>
+
+    <div class="row form-row">
+      <hr />
+      <div class="col-lg-6">
+        <button
+          class="modal-button dark-text uppercase bg-white "
+          type="button"
+          (click)="cancel()"
+        >
+          cancel
+        </button>
+      </div>
+      <div class="col-lg-6">
+        <button class="bg-purp modal-button  uppercase" type="submit">
+          <span *ngIf="loading">
+            <span
+              class="spinner-grow spinner-grow-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            Please wait</span
+          >
+          <span *ngIf="!loading">
+            <span *ngIf="data.edit">update User</span>
+            <span *ngIf="!data.edit">create User</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,64 @@
+@mixin appTransition() {
+  transition: all ease-in-out 0.3s;
+}
+
+@keyframes loadSpinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes holdInPlaceWhileSpinning {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/*Circular loading. Primarily for table load indicator*/
+.loader-holder {
+  height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  .loading {
+    width: 200px;
+    height: 200px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    // background-color: $pinkRed;
+    border-top: 10px solid $pinkRed;
+    position: relative;
+    animation: loadSpinner 2s linear infinite;
+    span {
+      position: absolute;
+      height: 200px;
+      width: 200px;
+      text-align: center;
+      line-height: 200px;
+      animation: holdInPlaceWhileSpinning 2s linear infinite;
+    }
+  }
+
+  .loading:before,
+  .loading:after {
+    content: "";
+    width: 200px;
+    height: 200px;
+    // background-color: red;
+    position: absolute;
+    left: 0;
+    top: -10px;
+    border-radius: 50%;
+  }
+
+  .loading::before {
+    border-top: 10px solid $sharpYellow;
+    transform: rotate(120deg);
+  }
+  .loading::after {
+    border-top: 10px solid $mainPurple;
+    transform: rotate(240deg);
+  }
+}

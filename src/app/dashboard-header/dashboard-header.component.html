@@ -1,0 +1,109 @@
+<div class="bg-purp">
+  <div class="col-lg-10 offset-lg-1 col-sm-12">
+    <nav class="navbar navbar-expand-sm ">
+      <a href="" class="navbar-brand"
+        ><img src="assets/imgs/goteller-tight-white.png" height="25" alt=""
+      /></a>
+
+      <!-- Toggler/collapsibe Button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapsibleNavbar"
+      >
+        <span class="navbar-toggler-icon ">
+          <i class="fa fa-bars link-up text-white"></i
+        ></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ">
+          <li class="nav-item">
+            <a
+              [routerLink]="['overview']"
+              routerLinkActive="router-link-active"
+              class="nav-link"
+              >Overview</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              [routerLink]="['merchants']"
+              routerLinkActive="router-link-active"
+              class="nav-link"
+              >Merchants</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              [routerLink]="['agents']"
+              routerLinkActive="router-link-active"
+              class="nav-link"
+              >Agents</a
+            >
+          </li>
+          <li class="nav-item"></li>
+
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle text-white"
+              href="#"
+              id="navbarDropdownMenuLink2"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              >Activity</a
+            >
+            <div
+              class="dropdown-menu bg-purp text-white"
+              aria-labelledby="navbarDropdownMenuLink2"
+            >
+              <a class="dropdown-item link-up">Account Opening Requests</a>
+              <a class="dropdown-item link-up">Merchant Activation Requests</a>
+              <a class="dropdown-item link-up">Merchant Device Delivery</a>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a
+              [routerLink]="['users']"
+              routerLinkActive="router-link-active"
+              class="nav-link"
+              >Users</a
+            >
+          </li>
+        </ul>
+
+        <ul class="navbar-nav pull-right mr-auto " style="float:right;">
+          <li class="nav-item dropdown ">
+            <a
+              class="nav-link dropdown-toggle text-white"
+              href="#"
+              id="navbarDropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="fa fa-user"></i>&nbsp; {{ loggedInUser?.firstName }}
+              {{ loggedInUser?.lastName }}
+            </a>
+            <div
+              class="dropdown-menu bg-purp text-white"
+              aria-labelledby="navbarDropdownMenuLink"
+            >
+              <a class="dropdown-item link-up" (click)="openProfileModal()"
+                >Profile</a
+              >
+
+              <a class="dropdown-item link-up" (click)="logOut()">Logout</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- <div class="collapse navbar-collapse pull-right" id="collapsibleNavbar">
+              
+            </div> -->
+    </nav>
+  </div>
+</div>

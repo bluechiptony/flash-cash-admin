@@ -1,0 +1,45 @@
+<div class="container-fluid ">
+  <div class="row full-page bg-purp centered-flex">
+    <div class="col-lg-4 col-xs-10">
+      <div class="login-box bg-white">
+        <div class="form-row centered-flex">
+          <span class="">Please enter your login details</span>
+        </div>
+        <div class="form-row">
+          <input
+            type="text"
+            class="login-input bg-input-purp "
+            placeholder="Email Address"
+          />
+        </div>
+        <div class="form-row">
+          <input
+            type="password"
+            class="login-input bg-input-purp "
+            placeholder="Password"
+          />
+        </div>
+        <div class="form-row centered-flex">
+          <span class=""
+            >Forgot your password? &nbsp;
+            <span
+              class="link-up"
+              [routerLink]="['forgot-password']"
+              routerLinkActive="router-link-active"
+              >Click Here</span
+            ></span
+          >
+        </div>
+        <div class="form-row centered-flex">
+          <button
+            class="login-button uppercase bg-purp"
+            [routerLink]="['dashboard']"
+            routerLinkActive="router-link-active"
+          >
+            login
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

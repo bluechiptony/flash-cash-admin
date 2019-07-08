@@ -1,0 +1,53 @@
+@import "reset";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "colors";
+@import "measures";
+@import "text";
+@import "vars";
+@import "elements";
+
+mat-footer-row,
+mat-header-row,
+mat-row {
+  display: flex;
+  border-width: 0;
+  border-bottom-width: 0px;
+  border-bottom-color: rgba(0, 0, 0, 0);
+  align-items: center;
+  box-sizing: border-box;
+}
+
+mat-row {
+  margin-bottom: 10px;
+  border-radius: 3px;
+  box-shadow: 0 0 20px 0px rgba($color: #bcc3d1, $alpha: 0.2);
+  cursor: pointer;
+  @include appTransition();
+}
+
+mat-row:hover {
+  //   background-color: $appBgColorDarker;
+  background-color: #b5c0fa59;
+}
+
+mat-cell {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.mat-dialog-container {
+  // box-shadow:0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
+  box-shadow: rgba(51, 78, 205, 0.2);
+  //   background-color: $mainPurple;
+  padding: 0;
+  // animation: jello 0.3 linear delay iteration-count direction fill-mode;
+}
+
+.cdk-overlay-dark-backdrop {
+  //background: rgba(0,0,0,.32);
+  background: rgba(51, 78, 205, 0.3);
+}
+
+.modal-padding {
+  padding: 24px;
+}
