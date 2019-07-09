@@ -7,7 +7,7 @@
         </div>
         <div class="form-row"></div>
         <div class="col-lg-12">
-          <form [formGroup]="appForm">
+          <form [formGroup]="appForm" (ngSubmit)="handleSubmit()">
             <div class="row">
               <div class="col-lg-6 col-xs-12">
                 <div class="form-row-app">
@@ -18,31 +18,71 @@
                   >
                 </div>
                 <div class="form-row">
-                  <span class="form-prompt ">Full Name</span>
-                  <input
-                    type="text"
-                    placeholder="e.g Trust Ventures"
-                    formControlName="businessName"
-                    class="app-form-input"
-                  />
-                </div>
-                <div class="form-row">
-                  <span class="form-prompt ">Phone Number</span>
+                  <span class="form-prompt ">Full Name * </span>
                   <input
                     type="text"
                     placeholder="e.g James Milner"
-                    formControlName="businessName"
+                    formControlName="fullName"
                     class="app-form-input"
                   />
+                  <div
+                    class="animated fadeIn"
+                    *ngIf="submitted && fullName.invalid"
+                  >
+                    <span
+                      class="error-text-red"
+                      *ngIf="fullName.errors.required"
+                      >Please enter the agent's full name</span
+                    >
+                  </div>
                 </div>
                 <div class="form-row">
-                  <span class="form-prompt ">Email Address</span>
+                  <span class="form-prompt ">Phone Number *</span>
+                  <input
+                    type="text"
+                    placeholder="e.g 08023389286"
+                    formControlName="phoneNumber"
+                    class="app-form-input"
+                  />
+                  <div
+                    class="animated fadeIn"
+                    *ngIf="submitted && phoneNumber.invalid"
+                  >
+                    <span
+                      class="error-text-red"
+                      *ngIf="phoneNumber.errors.required"
+                      >Please enter the agent's phone number</span
+                    >
+                    <span
+                      class="error-text-red"
+                      *ngIf="phoneNumber.errors.pattern"
+                      >Please enter a valid phone number</span
+                    >
+                  </div>
+                </div>
+                <div class="form-row">
+                  <span class="form-prompt ">Email Address *</span>
                   <input
                     type="text"
                     placeholder="e.g email@email.com"
-                    formControlName="businessName"
+                    formControlName="emailAddress"
                     class="app-form-input"
                   />
+                  <div
+                    class="animated fadeIn"
+                    *ngIf="submitted && emailAddress.invalid"
+                  >
+                    <span
+                      class="error-text-red"
+                      *ngIf="emailAddress.errors.required"
+                      >Please enter the agent's email address</span
+                    >
+                    <span
+                      class="error-text-red"
+                      *ngIf="emailAddress.errors.pattern"
+                      >Please enter a valid email address</span
+                    >
+                  </div>
                 </div>
               </div>
               <div class="col-lg-6 col-xs-12">
@@ -54,36 +94,82 @@
                   >
                 </div>
                 <div class="form-row">
-                  <span class="form-prompt ">State </span>
-                  <select class="select-css bg-app-darker">
+                  <span class="form-prompt ">State * </span>
+                  <select
+                    class="select-css bg-app-darker"
+                    formControlName="stateId"
+                    (change)="getLgasForState($event.target.value)"
+                  >
                     <option [ngValue]="null" disabled>Choose State</option>
+                    <option
+                      value="{{ state.stateId }}"
+                      *ngFor="let state of states"
+                      >{{ state.name }}</option
+                    >
                   </select>
+                  <div
+                    class="animated fadeIn"
+                    *ngIf="submitted && stateId.invalid"
+                  >
+                    <span class="error-text-red" *ngIf="stateId.errors.required"
+                      >Please select a state</span
+                    >
+                  </div>
                 </div>
                 <div class="form-row">
-                  <span class="form-prompt ">Local Government</span>
-                  <select class="select-css bg-app-darker">
+                  <span class="form-prompt "
+                    >Local Government *
+                    <span *ngIf="loadingLgas" class="pull-right"
+                      ><i class="fa fa-spin fa-spinner"></i></span
+                  ></span>
+                  <span class="clearfix"></span>
+                  <select
+                    class="select-css bg-app-darker"
+                    formControlName="lgaId"
+                  >
                     <option [ngValue]="null" disabled
                       >Choose Local Government</option
                     >
+                    <option [ngValue]="lga.localId" *ngFor="let lga of lgas">{{
+                      lga.localName
+                    }}</option>
                   </select>
+                  <div
+                    class="animated fadeIn"
+                    *ngIf="submitted && lgaId.invalid"
+                  >
+                    <span class="error-text-red" *ngIf="lgaId.errors.required"
+                      >Please select a logal government</span
+                    >
+                  </div>
                 </div>
                 <div class="form-row">
                   <span class="form-prompt ">City</span>
                   <input
                     type="text"
                     placeholder="e.g Asaba"
-                    formControlName="businessName"
+                    formControlName="city"
                     class="app-form-input"
                   />
                 </div>
                 <div class="form-row">
-                  <span class="form-prompt ">Full Physical Address</span>
+                  <span class="form-prompt ">Full Physical Address *</span>
                   <input
                     type="text"
                     placeholder="e.g No 7 okafor streeet, Asaba, Delta state"
-                    formControlName="businessName"
+                    formControlName="physicalAddress"
                     class="app-form-input"
                   />
+                  <div
+                    class="animated fadeIn"
+                    *ngIf="submitted && physicalAddress.invalid"
+                  >
+                    <span
+                      class="error-text-red"
+                      *ngIf="physicalAddress.errors.required"
+                      >Please enter the agent's address</span
+                    >
+                  </div>
                 </div>
               </div>
               <div class="col-lg-6 col-xs-12">
@@ -109,7 +195,7 @@
                   <input
                     type="text"
                     placeholder="e.g No 7 okafor streeet, Asaba, Delta state"
-                    formControlName="businessName"
+                    formControlName="businessAddress"
                     class="app-form-input"
                   />
                 </div>
@@ -118,8 +204,7 @@
                 <div class="form-row centered-flex" style="width:100%;">
                   <button
                     class="login-button uppercase bg-purp col-xs-12"
-                    [routerLink]="['dashboard']"
-                    routerLinkActive="router-link-active"
+                    type="submit"
                   >
                     register agent
                   </button>

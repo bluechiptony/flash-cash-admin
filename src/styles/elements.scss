@@ -1,6 +1,14 @@
 @import "colors";
 @import "measures";
 
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
 .link-up {
   cursor: pointer;
 }

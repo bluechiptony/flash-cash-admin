@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
   providedIn: "root"
 })
 export class AppService {
-  public BASE_URL = "http://localhost:7000";
+  public BASE_URL = "http://localhost:5500";
 
   public LOGGED_IN_USER = "loggedInUSer";
   public LOGGED_IN_USER_TOKEN = "loggedInUSerToken";
