@@ -17,6 +17,7 @@ export class NewTicketComponent implements OnInit {
   user: any = {};
   loading: boolean;
   isSubmitted: boolean;
+
   constructor(
     private dialogRef: MatDialogRef<UserModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -30,24 +31,18 @@ export class NewTicketComponent implements OnInit {
 
   buildForm = () => {
     this.appForm = this.formBuilder.group({
-      firstName: [this.user!.firstName, Validators.required],
-      lastName: [this.user!.lastName, Validators.required],
+      customerName: ["", Validators.required],
+
       customerEmailAddress: [
-        this.user!.customerEmailAddress,
+        "",
         Validators.compose([
           Validators.required,
           Validators.pattern(this.app.emailRegex)
         ])
       ],
-      issueCategory: [
-        this.user!.phoneNumber,
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(this.app.phoneRegex)
-        ])
-      ],
-      solution: [this.user!.accountType, Validators.required],
-      issueDescription: [this.user!.accountType, Validators.required]
+      issueCategory: ["", Validators.required],
+      solution: ["", Validators.required],
+      issueDescription: ["", Validators.required]
     });
   };
   cancel() {
@@ -59,23 +54,15 @@ export class NewTicketComponent implements OnInit {
     if (this.appForm.valid) {
       let user = this.appForm.value;
       console.log(user);
-
-      if (this.data.edit) {
-        console.log(user);
-
-        // this.updateUser(user);
-      } else {
-        // this.createUser(user);
-      }
     } else {
       this.app.showWarningMessage("Please review your submission.");
     }
   }
 
-  createUser(user: any) {
+  createTicket(ticket: any) {
     this.loading = true;
-    this.requestUrl = this.app.BASE_URL + "/users/create/account";
-    this.app.makePostRequest(this.requestUrl, user).subscribe(
+    this.requestUrl = this.app.BASE_URL + "/tickets/create";
+    this.app.makePostRequest(this.requestUrl, ticket).subscribe(
       data => {
         this.loading = false;
         this.app.showSuccessMessage("User account successfully Created");
@@ -87,11 +74,11 @@ export class NewTicketComponent implements OnInit {
     );
   }
 
-  updateUser(user: any) {
+  updateUser(ticket: any) {
     this.loading = true;
-    this.requestUrl = this.app.BASE_URL + "/users/create/account";
-    user.id = this.user.id;
-    this.app.makePutRequest(this.requestUrl, user).subscribe(
+    this.requestUrl = this.app.BASE_URL + "/tickets/create/account";
+    // ticket.id = this.ticket.id;
+    this.app.makePutRequest(this.requestUrl, ticket).subscribe(
       data => {
         this.loading = false;
         this.app.showSuccessMessage("User account successfully Updated");
@@ -103,13 +90,10 @@ export class NewTicketComponent implements OnInit {
     );
   }
 
-  get firstName() {
+  get customerName() {
     return this.appForm.get("customerName");
   }
 
-  get lastName() {
-    return this.appForm.get("lastName");
-  }
   get customerEmailAddress() {
     return this.appForm.get("customerEmailAddress");
   }

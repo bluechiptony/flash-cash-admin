@@ -1,47 +1,33 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { MatTableDataSource } from "@angular/material/table";
-import { MatPaginator } from "@angular/material/paginator";
-import { Observable } from "rxjs";
-import { MatDialog } from "@angular/material/dialog";
 import { AppService } from "src/app/application/services/app.service";
-import { DataService } from "src/app/application/services/data.service";
-import { UserModalComponent } from "src/app/modals/user-modal/user-modal.component";
-import { HttpParams, HttpHeaders } from "@angular/common/http";
+import { HttpHeaders } from "@angular/common/http";
+import { MatTableDataSource, MatPaginator, MatDialog } from "@angular/material";
+import { Observable } from "rxjs";
+import { NewSolutionComponent } from "src/app/modals/new-solution/new-solution.component";
 
 @Component({
-  selector: "app-user-collection",
-  templateUrl: "./user-collection.component.html",
-  styleUrls: ["./user-collection.component.scss"]
+  selector: "app-solution-collection",
+  templateUrl: "./solution-collection.component.html",
+  styleUrls: ["./solution-collection.component.scss"]
 })
-export class UserCollectionComponent implements OnInit {
-  users: any[] = [];
+export class SolutionCollectionComponent implements OnInit {
+  headers = new HttpHeaders({
+    Authorization: this.app.getLoggedInUserToken()
+  });
+  solutions: any[] = [];
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   displayCollection: Observable<any>;
   loading: boolean;
-  headers = new HttpHeaders({
-    Authorization: this.app.getLoggedInUserToken()
-  });
 
-  pageNumber: any = 1;
-  pageSize: any = 20;
   hasData: boolean;
   hasError: boolean;
 
-  constructor(
-    private app: AppService,
-    private dialog: MatDialog,
-    private data: DataService
-  ) {}
+  constructor(private app: AppService, private dialog: MatDialog) {}
 
   ngOnInit() {
-    this.loading = true;
-
-    // setTimeout(() => {
-    //   this.loadDataSource(this.data.users);
-    // }, 3000);
-    this.getUsersFromRemote(true, false);
+    this.getSolutions();
   }
 
   setUpPaginatorAndSorter() {
@@ -59,24 +45,6 @@ export class UserCollectionComponent implements OnInit {
     }
   }
 
-  openNewUserModal = (user?: any): void => {
-    let data: any = {};
-    if (user != null) {
-      data.edit = true;
-      data.user = user;
-    } else {
-      data.edit = false;
-    }
-    console.log(data);
-    let dialog = this.dialog.open(UserModalComponent, {
-      width: "500px",
-      data: data
-    });
-    dialog.afterClosed().subscribe(result => {
-      // this.getUsersFromRemote(false, true);
-    });
-  };
-
   loadDataSource = (data: any[]) => {
     this.loading = false;
     if (data.length > 0) {
@@ -91,15 +59,15 @@ export class UserCollectionComponent implements OnInit {
     }
   };
 
-  getUsersFromRemote = (load?: boolean, clear?: boolean) => {
+  /**
+   * Gets solutions
+   */
+  getSolutions = (): void => {
     this.loading = true;
-    var url = this.app.BASE_URL + "/user/get";
-    let params = new HttpParams()
-      .set("pagenumber", this.pageNumber)
-      .set("pagesize", this.pageSize);
+    var url = this.app.BASE_URL + "/solutions/get";
     console.log(url);
 
-    this.app.makeGetRequestWithParams(url, this.headers, params).subscribe(
+    this.app.makeGetRequest(url).subscribe(
       data => {
         this.loading = false;
         console.log(data);
@@ -109,7 +77,6 @@ export class UserCollectionComponent implements OnInit {
             this.loadDataSource(response.data);
             this.hasData = true;
             this.hasError = false;
-            this.pageNumber++;
           } else {
             this.hasData = false;
             this.hasError = false;
@@ -124,8 +91,28 @@ export class UserCollectionComponent implements OnInit {
         this.hasData = false;
         this.hasError = true;
         this.app.processError(error);
-        console.log(error);
       }
     );
+  };
+
+  /**
+   * Opens new modal solution
+   */
+  openNewSolution = (solution?: any): void => {
+    let data: any = {};
+    if (solution != null) {
+      data.edit = true;
+      data.solution = solution;
+    } else {
+      data.edit = false;
+    }
+    console.log(data);
+    let dialog = this.dialog.open(NewSolutionComponent, {
+      width: "500px",
+      data: data
+    });
+    dialog.afterClosed().subscribe(result => {
+      // this.getUsersFromRemote(false, true);
+    });
   };
 }

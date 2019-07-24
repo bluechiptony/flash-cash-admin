@@ -48,8 +48,12 @@ import { TicketTableComponent } from "./tables/ticket-table/ticket-table.compone
 import { NewTicketComponent } from "./modals/new-ticket/new-ticket.component";
 import { TicketComponent } from "./ticket/ticket.component";
 import { IssuesCategoriesComponent } from "./issues-categories/issues-categories.component";
-import { IssuesCategoryCollectionComponent } from "./issues-category-collection/issues-category-collection.component";
+
 import { NewIssueCategoryComponent } from "./modals/new-issue-category/new-issue-category.component";
+import { SolutionCollectionComponent } from "./collections/solution-collection/solution-collection.component";
+import { IssueCategoryCollectionComponent } from "./collections/issue-category-collection/issue-category-collection.component";
+import { SolutionsComponent } from "./solutions/solutions.component";
+import { NewSolutionComponent } from "./modals/new-solution/new-solution.component";
 
 @NgModule({
   declarations: [
@@ -79,8 +83,13 @@ import { NewIssueCategoryComponent } from "./modals/new-issue-category/new-issue
     NewTicketComponent,
     TicketComponent,
     IssuesCategoriesComponent,
-    IssuesCategoryCollectionComponent,
-    NewIssueCategoryComponent
+
+    NewIssueCategoryComponent,
+
+    IssueCategoryCollectionComponent,
+    SolutionsComponent,
+    SolutionCollectionComponent,
+    NewSolutionComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +109,8 @@ import { NewIssueCategoryComponent } from "./modals/new-issue-category/new-issue
   entryComponents: [
     UserModalComponent,
     NewTicketComponent,
-    NewIssueCategoryComponent
+    NewIssueCategoryComponent,
+    NewSolutionComponent
   ],
   bootstrap: [AppComponent]
 })

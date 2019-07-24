@@ -13,6 +13,8 @@ import { UsersComponent } from "./users/users.component";
 import { NewMerchantComponent } from "./new-merchant/new-merchant.component";
 import { NewAgentComponent } from "./new-agent/new-agent.component";
 import { TicketsComponent } from "./tickets/tickets.component";
+import { IssuesCategoriesComponent } from "./issues-categories/issues-categories.component";
+import { SolutionsComponent } from "./solutions/solutions.component";
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -27,6 +29,8 @@ const routes: Routes = [
       { path: "overview", component: OverviewComponent },
       { path: "", component: OverviewComponent },
       { path: "tickets", component: TicketsComponent },
+      { path: "solutions", component: SolutionsComponent },
+      { path: "issue-categories", component: IssuesCategoriesComponent },
       { path: "merchants", component: MerchantsComponent },
       { path: "new-merchant", component: NewMerchantComponent },
       { path: "new-agent", component: NewAgentComponent },

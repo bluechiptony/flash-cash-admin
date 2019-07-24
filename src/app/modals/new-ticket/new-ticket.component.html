@@ -13,12 +13,17 @@
         <span class="form-prompt">Customer Name</span>
         <input
           class="modal-text-box"
-          formControlName="firstName"
+          formControlName="customerName"
           type="text"
           placeholder="Customer Name"
         />
-        <span class="animated fadeIn" *ngIf="isSubmitted && firstName.invalid">
-          <span class="error-text-red block" *ngIf="firstName.errors.required"
+        <span
+          class="animated fadeIn"
+          *ngIf="isSubmitted && customerName.invalid"
+        >
+          <span
+            class="error-text-red block"
+            *ngIf="customerName.errors.required"
             >Please provide a first name</span
           >
         </span>

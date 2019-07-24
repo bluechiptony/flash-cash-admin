@@ -1,5 +1,10 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpErrorResponse
+} from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
@@ -129,6 +134,12 @@ export class AppService {
     }
   };
 
+  public getSimpleAuthHeader = (): HttpHeaders => {
+    return new HttpHeaders({
+      Authorization: this.getLoggedInUserToken()
+    });
+  };
+
   public logout = (): void => {
     this.cookieService.delete(this.LOGGED_IN_USER);
     this.router.navigate(["/"]);
@@ -164,4 +175,12 @@ export class AppService {
       this.toast.warning(message, "Warning.");
     }
   }
+
+  public processError = (error: HttpErrorResponse): void => {
+    if (error.status === 401) {
+      this.showErrorMessage("You are not authorized");
+    } else {
+      this.showErrorMessage(error.error.error);
+    }
+  };
 }

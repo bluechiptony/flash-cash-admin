@@ -1,0 +1,41 @@
+<div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12"></div>
+      
+          <div class="col-lg-3" *ngFor="let transaction of transactions">
+            <div class="transaction-box">
+              <div class="transaction-heading elipsis">
+                <span class="transaction-date block"
+                  >{{ transaction?.date }} {{ transaction?.time }}</span
+                >
+                <span class="transaction-ref block">{{
+                  transaction?.reference
+                }}</span>
+                <hr />
+              </div>
+              <div class="transaction-body">
+                <span class="info-prompt block">Service Option</span>
+                <span class="transaction-service-name block">{{
+                  transaction?.merchant?.serviceName
+                }}</span>
+                <span class="info-prompt block">Service Amount</span>
+                <span class="transaction-amount block">
+                  {{ transaction?.amount }}
+                </span>
+                <span class="info-prompt block">Service Charge</span>
+                <span class="transaction-service-charge block">
+                  {{ transaction?.serviceCharge }}
+                </span>
+                <hr />
+              </div>
+              <div class="transaction-footer">
+                <span class="info-prompt block">Transaction Total</span>
+                <span class="transaction-total-amount">
+                  {{ transaction?.totalAmount }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
