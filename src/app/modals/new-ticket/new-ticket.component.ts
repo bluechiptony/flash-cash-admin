@@ -1,19 +1,15 @@
 import { Component, OnInit, Inject } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { UserModalComponent } from "../user-modal/user-modal.component";
 import { AppService } from "src/app/application/services/app.service";
-import {
-  NgForm,
-  FormControl,
-  FormGroup,
-  FormBuilder,
-  Validators
-} from "@angular/forms";
+
 @Component({
-  selector: "app-user-modal",
-  templateUrl: "./user-modal.component.html",
-  styleUrls: ["./user-modal.component.scss"]
+  selector: "app-new-ticket",
+  templateUrl: "./new-ticket.component.html",
+  styleUrls: ["./new-ticket.component.scss"]
 })
-export class UserModalComponent implements OnInit {
+export class NewTicketComponent implements OnInit {
   requestUrl: string;
   lgas: any[] = [];
   accountTypes = ["ADMINISTRATOR", "SALES", "REVIEW"];
@@ -29,9 +25,6 @@ export class UserModalComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.data.edit) {
-      this.user = this.data.user;
-    }
     this.buildForm();
   }
 
@@ -39,21 +32,22 @@ export class UserModalComponent implements OnInit {
     this.appForm = this.formBuilder.group({
       firstName: [this.user!.firstName, Validators.required],
       lastName: [this.user!.lastName, Validators.required],
-      email: [
-        this.user!.emailAddress,
+      customerEmailAddress: [
+        this.user!.customerEmailAddress,
         Validators.compose([
           Validators.required,
           Validators.pattern(this.app.emailRegex)
         ])
       ],
-      phoneNumber: [
+      issueCategory: [
         this.user!.phoneNumber,
         Validators.compose([
           Validators.required,
           Validators.pattern(this.app.phoneRegex)
         ])
       ],
-      accountType: [this.user!.accountType, Validators.required]
+      solution: [this.user!.accountType, Validators.required],
+      issueDescription: [this.user!.accountType, Validators.required]
     });
   };
   cancel() {
@@ -110,20 +104,23 @@ export class UserModalComponent implements OnInit {
   }
 
   get firstName() {
-    return this.appForm.get("firstName");
+    return this.appForm.get("customerName");
   }
 
   get lastName() {
     return this.appForm.get("lastName");
   }
-  get email() {
-    return this.appForm.get("email");
+  get customerEmailAddress() {
+    return this.appForm.get("customerEmailAddress");
   }
-  get phoneNumber() {
-    return this.appForm.get("phoneNumber");
+  get issueCategory() {
+    return this.appForm.get("issueCategory");
   }
 
-  get accountType() {
-    return this.appForm.get("accountType");
+  get solution() {
+    return this.appForm.get("solution");
+  }
+  get issueDescription() {
+    return this.appForm.get("issueDescription");
   }
 }

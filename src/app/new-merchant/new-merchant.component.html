@@ -6,7 +6,7 @@
           <span class="route-heading">Register New Merchant</span>
         </div>
         <div class="form-row"></div>
-        <form [formGroup]="appForm">
+        <form [formGroup]="appForm" (ngSubmit)="handleSubmit()">
           <div class="col-lg-12">
             <div class="row">
               <div class="col-lg-6 col-xs-12">
@@ -18,40 +18,90 @@
                   >
                 </div>
                 <div class="form-row">
-                  <span class="form-prompt ">Business Name</span>
+                  <span class="form-prompt ">Business Name *</span>
                   <input
                     type="text"
                     placeholder="e.g Trust Ventures"
                     formControlName="businessName"
                     class="app-form-input"
                   />
+                  <div
+                    class="animated fadeIn"
+                    *ngIf="submitted && businessName.invalid"
+                  >
+                    <span
+                      class="error-text-red"
+                      *ngIf="businessName.errors.required"
+                    >
+                      Please enter the merchant's business name
+                    </span>
+                  </div>
                 </div>
                 <div class="form-row">
-                  <span class="form-prompt ">Contact Person's Name</span>
+                  <span class="form-prompt ">Contact Person's Name *</span>
                   <input
                     type="text"
                     placeholder="e.g James Milner"
-                    formControlName="businessName"
+                    formControlName="contactName"
                     class="app-form-input"
                   />
+                  <div
+                    class="animated fadeIn"
+                    *ngIf="submitted && contactName.invalid"
+                  >
+                    <span
+                      class="error-text-red"
+                      *ngIf="contactName.errors.required"
+                    >
+                      Please enter the merchant's contact person's name
+                    </span>
+                  </div>
                 </div>
                 <div class="form-row">
                   <span class="form-prompt ">Email Address</span>
                   <input
                     type="text"
                     placeholder="e.g email@email.com"
-                    formControlName="businessName"
+                    formControlName="emailAddress"
                     class="app-form-input"
                   />
+                  <div
+                    class="animated fadeIn"
+                    *ngIf="submitted && emailAddress.invalid"
+                  >
+                    <span
+                      class="error-text-red"
+                      *ngIf="emailAddress.errors.pattern"
+                    >
+                      Please enter a valid email address
+                    </span>
+                  </div>
                 </div>
                 <div class="form-row">
-                  <span class="form-prompt ">Contact Phone Number</span>
+                  <span class="form-prompt ">Contact Phone Number *</span>
                   <input
                     type="text"
                     placeholder="e.g 0802338327"
-                    formControlName="businessName"
+                    formControlName="phoneNumber"
                     class="app-form-input"
                   />
+                </div>
+                <div
+                  class="animated fadeIn"
+                  *ngIf="submitted && phoneNumber.invalid"
+                >
+                  <span
+                    class="error-text-red"
+                    *ngIf="phoneNumber.errors.required"
+                  >
+                    Please enter the merchant's phone number
+                  </span>
+                  <span
+                    class="error-text-red"
+                    *ngIf="phoneNumber.errors.pattern"
+                  >
+                    Please enter a valid phone number
+                  </span>
                 </div>
               </div>
 
@@ -66,39 +116,94 @@
                   >
                 </div>
                 <div class="form-row">
-                  <span class="form-prompt ">State</span>
+                  <span class="form-prompt ">State of operation *</span>
                   <select
                     class="select-css bg-app-darker"
-                    formControlName="bankName"
+                    formControlName="stateId"
+                    (change)="getLgasForState($event.target.value)"
                   >
                     <option [ngValue]="null" disabled>Choose State</option>
+                    <option
+                      value="{{ state.stateId }}"
+                      *ngFor="let state of states"
+                      >{{ state.name }}</option
+                    >
                   </select>
+                  <div
+                    class="animated fadeIn"
+                    *ngIf="submitted && stateId.invalid"
+                  >
+                    <span
+                      class="error-text-red"
+                      *ngIf="stateId.errors.required"
+                    >
+                      Please select a state of operation
+                    </span>
+                  </div>
                 </div>
                 <div class="form-row">
-                  <span class="form-prompt ">Local Government</span>
-                  <select class="select-css bg-app-darker">
+                  <span class="form-prompt block" style="width: 100%;"
+                    >Local Government *
+                    <span *ngIf="loadingLgas" class="pull-right"
+                      ><i class="fa fa-spin fa-spinner"></i></span
+                  ></span>
+                  <span class="clearfix"></span>
+                  <select
+                    class="select-css bg-app-darker"
+                    formControlName="lgaId"
+                  >
                     <option [ngValue]="null" disabled
                       >Choose Local Government</option
                     >
+                    <option [ngValue]="lga.localId" *ngFor="let lga of lgas">{{
+                      lga.localName
+                    }}</option>
                   </select>
+                  <div
+                    class="animated fadeIn"
+                    *ngIf="submitted && lgaId.invalid"
+                  >
+                    <span class="error-text-red" *ngIf="lgaId.errors.required">
+                      Please select the merchant's LGA of operation
+                    </span>
+                  </div>
                 </div>
                 <div class="form-row">
-                  <span class="form-prompt ">Address</span>
+                  <span class="form-prompt ">Address *</span>
                   <input
                     type="text"
-                    placeholder="e.g 0802338327"
-                    formControlName="businessName"
+                    placeholder="e.g 12 Okon street, Ibadan"
+                    formControlName="address"
                     class="app-form-input"
                   />
+                  <div
+                    class="animated fadeIn"
+                    *ngIf="submitted && address.invalid"
+                  >
+                    <span
+                      class="error-text-red"
+                      *ngIf="address.errors.required"
+                    >
+                      Please enter the merchant's address
+                    </span>
+                  </div>
                 </div>
                 <div class="form-row">
-                  <span class="form-prompt ">City</span>
+                  <span class="form-prompt ">City *</span>
                   <input
                     type="text"
-                    placeholder="e.g 0802338327"
-                    formControlName="businessName"
+                    placeholder="e.g Abakiliki"
+                    formControlName="city"
                     class="app-form-input"
                   />
+                  <div
+                    class="animated fadeIn"
+                    *ngIf="submitted && city.invalid"
+                  >
+                    <span class="error-text-red" *ngIf="city.errors.required">
+                      Please enter the merchant's city
+                    </span>
+                  </div>
                 </div>
               </div>
               <div class="col-lg-6 col-xs-12">
@@ -113,34 +218,54 @@
                 </div>
                 <div class="form-row">
                   <span class="form-prompt "
-                    >Does Merchant have Bank Account?</span
+                    >Merchant has bank account we can service? *</span
                   >
+                  &nbsp;
                   <input
-                    type="text"
-                    placeholder="e.g Trust Ventures"
-                    formControlName="businessName"
-                    class="app-form-input"
+                    type="checkbox"
+                    class="link-up"
+                    id="hasServAccount"
+                    formControlName="hasServiceableAccount"
+                    (change)="alternateServicableAccount()"
                   />
+                  <label for="hasServAccount" class="appCheckBoxLabel"></label>
+                  <div
+                    class="animated fadeIn"
+                    *ngIf="submitted && hasServiceableAccount.invalid"
+                  >
+                    <span
+                      class="error-text-red"
+                      *ngIf="hasServiceableAccount.errors.required"
+                    >
+                      Denote whether or not if merchant has a servicable bank
+                      account
+                    </span>
+                  </div>
                 </div>
-                <div class="form-row">
+                <div class="form-row animated fadeIn" *ngIf="hasServicable">
                   <span class="form-prompt ">Merchants Bank</span>
                   <select
                     class="select-css bg-app-darker"
-                    formControlName="bankName"
+                    formControlName="merchantBankName"
                   >
                     <option [ngValue]="null" disabled
                       >Choose Merchant's Bank</option
                     >
+                    <option
+                      value="{{ bank.name }}"
+                      *ngFor="let bank of banks"
+                      >{{ bank.name }}</option
+                    >
                   </select>
                 </div>
-                <div class="form-row">
+                <div class="form-row animated fadeIn" *ngIf="hasServicable">
                   <span class="form-prompt "
                     >Merchants Bank Account Number</span
                   >
                   <input
                     type="text"
-                    placeholder="e.g Trust Ventures"
-                    formControlName="businessName"
+                    placeholder="e.g 0033383362"
+                    formControlName="merchantAccountNumber"
                     class="app-form-input"
                   />
                 </div>
@@ -156,26 +281,45 @@
                     for the merchant</span
                   >
                 </div>
-                <div class="form-row">
+                <div class="form-row animated fadeIn">
                   <span class="form-prompt "
                     >Does Merchant want a Bank Account?</span
                   >
+                  &nbsp;
                   <input
-                    type="text"
-                    placeholder="e.g Trust Ventures"
-                    formControlName="businessName"
-                    class="app-form-input"
+                    type="checkbox"
+                    class="link-up"
+                    id="selCheckBox"
+                    formControlName="openAccount"
+                    (change)="alternateCreateAccount()"
                   />
+                  <label for="selCheckBox" class="appCheckBoxLabel"></label>
                 </div>
-                <div class="form-row">
+                <div class="form-row" *ngIf="shouldOpenAccount">
                   <span class="form-prompt ">Merchants Desired Bank</span>
                   <select
                     class="select-css bg-app-darker"
-                    formControlName="bankName"
+                    formControlName="desiredBankName"
                   >
-                    <option [ngValue]="null" disabled
+                    <option value="null" disabled
                       >Choose Merchant's Bank</option
                     >
+                    <option
+                      value="{{ bank.name }}"
+                      *ngFor="let bank of banks"
+                      >{{ bank.name }}</option
+                    >
+                    <div
+                      class="animated fadeIn"
+                      *ngIf="submitted && desiredBankName.invalid"
+                    >
+                      <span
+                        class="error-text-red"
+                        *ngIf="desiredBankName.errors.required"
+                      >
+                        Please enter the merchant's desired bank
+                      </span>
+                    </div>
                   </select>
                 </div>
               </div>
@@ -184,8 +328,7 @@
                 <div class="form-row centered-flex" style="width:100%;">
                   <button
                     class="login-button uppercase bg-purp col-xs-12"
-                    [routerLink]="['dashboard']"
-                    routerLinkActive="router-link-active"
+                    type="submit"
                   >
                     register merchant
                   </button>

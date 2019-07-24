@@ -17,6 +17,8 @@ import { MatDialogModule } from "@angular/material/dialog";
 // import { MatCheckboxModule } from "@angular/material/checkbox";
 import "hammerjs";
 
+import { FroalaEditorModule, FroalaViewModule } from "angular-froala-wysiwyg";
+
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { FourOFourComponent } from "./four-o-four/four-o-four.component";
@@ -41,6 +43,13 @@ import { OverviewComponent } from "./overview/overview.component";
 import { AppService } from "./application/services/app.service";
 import { DataService } from "./application/services/data.service";
 import { UserModalComponent } from "./modals/user-modal/user-modal.component";
+import { TicketsComponent } from "./tickets/tickets.component";
+import { TicketTableComponent } from "./tables/ticket-table/ticket-table.component";
+import { NewTicketComponent } from "./modals/new-ticket/new-ticket.component";
+import { TicketComponent } from "./ticket/ticket.component";
+import { IssuesCategoriesComponent } from "./issues-categories/issues-categories.component";
+import { IssuesCategoryCollectionComponent } from "./issues-category-collection/issues-category-collection.component";
+import { NewIssueCategoryComponent } from "./modals/new-issue-category/new-issue-category.component";
 
 @NgModule({
   declarations: [
@@ -64,7 +73,14 @@ import { UserModalComponent } from "./modals/user-modal/user-modal.component";
     AgentsComponent,
     UsersComponent,
     OverviewComponent,
-    UserModalComponent
+    UserModalComponent,
+    TicketsComponent,
+    TicketTableComponent,
+    NewTicketComponent,
+    TicketComponent,
+    IssuesCategoriesComponent,
+    IssuesCategoryCollectionComponent,
+    NewIssueCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -76,10 +92,16 @@ import { UserModalComponent } from "./modals/user-modal/user-modal.component";
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatDialogModule
+    MatDialogModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
   ],
   providers: [DatePipe, CurrencyPipe, CookieService, AppService, DataService],
-  entryComponents: [UserModalComponent],
+  entryComponents: [
+    UserModalComponent,
+    NewTicketComponent,
+    NewIssueCategoryComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

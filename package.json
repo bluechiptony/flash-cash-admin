@@ -1,5 +1,5 @@
 {
-  "name": "gopos-utils",
+  "name": "bizzdes-support",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~8.0.0",
     "@angular/platform-browser-dynamic": "~8.0.0",
     "@angular/router": "~8.0.0",
+    "angular-froala-wysiwyg": "^3.0.3-2",
     "animate.css": "^3.7.2",
     "bootstrap": "^4.3.1",
     "font-awesome": "^4.7.0",

@@ -5,40 +5,59 @@
         <div class="form-row centered-flex">
           <span class="">Please enter your login details</span>
         </div>
-        <div class="form-row">
-          <input
-            type="text"
-            class="login-input bg-input-purp "
-            placeholder="Email Address"
-          />
-        </div>
-        <div class="form-row">
-          <input
-            type="password"
-            class="login-input bg-input-purp "
-            placeholder="Password"
-          />
-        </div>
-        <div class="form-row centered-flex">
-          <span class=""
-            >Forgot your password? &nbsp;
-            <span
-              class="link-up"
-              [routerLink]="['forgot-password']"
-              routerLinkActive="router-link-active"
-              >Click Here</span
-            ></span
-          >
-        </div>
-        <div class="form-row centered-flex">
-          <button
-            class="login-button uppercase bg-purp"
-            [routerLink]="['dashboard']"
-            routerLinkActive="router-link-active"
-          >
-            login
-          </button>
-        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+          <div class="form-row">
+            <input
+              type="text"
+              class="login-input bg-input-purp "
+              placeholder="Email Address"
+              formControlName="emailAddress"
+            />
+            <div
+              class="animated fadeIn"
+              *ngIf="submitted && emailAddress.invalid"
+            >
+              <span class="error-text-red" *ngIf="emailAddress.errors.required">
+                Pleae enter your email address
+              </span>
+              <span class="error-text-red" *ngIf="emailAddress.errors.pattern">
+                Pleae enter a valid email address
+              </span>
+            </div>
+          </div>
+          <div class="form-row">
+            <input
+              type="password"
+              class="login-input bg-input-purp "
+              placeholder="Password"
+              formControlName="password"
+            />
+            <div class="animated fadeIn" *ngIf="submitted && password.invalid">
+              <span class="error-text-red" *ngIf="password.errors.required">
+                Pleae enter your password
+              </span>
+            </div>
+          </div>
+          <div class="form-row centered-flex">
+            <span class=""
+              >Forgot your password? &nbsp;
+              <span
+                class="link-up"
+                [routerLink]="['forgot-password']"
+                routerLinkActive="router-link-active"
+                >Click Here</span
+              ></span
+            >
+          </div>
+          <div class="form-row centered-flex">
+            <button class="login-button uppercase bg-purp" type="submit">
+              login
+              <span *ngIf="loading">
+                &nbsp; <i class="fa fa-spin fa-spinner"></i>
+              </span>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

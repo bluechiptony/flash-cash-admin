@@ -1,16 +1,15 @@
 <div class="row">
   <div class="col-lg-12">
     <button
-      class="bg-purp app-button text-white uppercase pull-right inline-margin-left"
-      [routerLink]="['/dashboard', 'new-merchant']"
-      routerLinkActive="router-link-active"
+      class="bg-purp app-button text-white uppercase pull-right inline-margin-left link-up"
+      (click)="openNewTicket()"
     >
-      new merchant
+      Create new ticket
     </button>
     <input
       type="text"
       class="search-text-box pull-right bg-app-darker"
-      placeholder="Search Transactions ... "
+      placeholder="Search Ticket Number ... "
       (keyup)="applyFilter($event.target.value)"
     />
   </div>

@@ -84,11 +84,7 @@ export class AppService {
   public saveLoggedInUser = (user: any): void => {
     if (user !== null || user !== undefined) {
       this.cookieService.set(this.LOGGED_IN_USER, JSON.stringify(user));
-      if (user.merchantRegistrationStatus!.kycStatus) {
-        this.router.navigate(["/dashboard"]);
-      } else {
-        this.router.navigate(["/dashboard/my-business"]);
-      }
+      this.router.navigate(["/dashboard"]);
     } else {
     }
   };
@@ -118,7 +114,7 @@ export class AppService {
 
   public saveLoggedInUserToken = (token: any): void => {
     if (token !== null || token !== undefined) {
-      this.cookieService.set(this.LOGGED_IN_USER_TOKEN, JSON.stringify(token));
+      this.cookieService.set(this.LOGGED_IN_USER_TOKEN, token);
     } else {
     }
   };
@@ -126,9 +122,8 @@ export class AppService {
   public getLoggedInUserToken = (): string => {
     if (this.cookieService.check(this.LOGGED_IN_USER_TOKEN)) {
       let cookieData = this.cookieService.get(this.LOGGED_IN_USER_TOKEN);
-      let cook = JSON.parse(cookieData);
 
-      return "Bearer " + cook.token;
+      return "Bearer " + cookieData;
     } else {
       return null;
     }

@@ -18,9 +18,7 @@
           placeholder="First Name"
         />
         <span class="animated fadeIn" *ngIf="isSubmitted && firstName.invalid">
-          <span
-            class="error-text-purp-backdrop block"
-            *ngIf="firstName.errors.required"
+          <span class="error-text-red block" *ngIf="firstName.errors.required"
             >Please provide a first name</span
           >
         </span>
@@ -36,9 +34,7 @@
           placeholder="Last Name"
         />
         <span class="animated fadeIn" *ngIf="isSubmitted && lastName.invalid">
-          <span
-            class="error-text-purp-backdrop block"
-            *ngIf="lastName.errors.required"
+          <span class="error-text-red block" *ngIf="lastName.errors.required"
             >Please provide a last name</span
           >
         </span>
@@ -57,17 +53,22 @@
           class="animated fadeIn"
           *ngIf="isSubmitted && phoneNumber.invalid"
         >
-          <span
-            class="error-text-purp-backdrop block"
-            *ngIf="phoneNumber.errors.required"
+          <span class="error-text-red block" *ngIf="phoneNumber.errors.required"
             >Please provide a phone number</span
           >
-          <span
-            class="error-text-purp-backdrop block"
-            *ngIf="phoneNumber.errors.pattern"
+          <span class="error-text-red block" *ngIf="phoneNumber.errors.pattern"
             >Please provide valid phone number</span
           >
         </span>
+      </div>
+      <div class="col-lg-6 col-xs-12">
+        <span class="form-prompt ">Account Type * </span>
+        <select class="select-css bg-app-darker" formControlName="accountType">
+          <option value="null" selected disabled>Choose Account Type</option>
+          <option value="{{ type }}" *ngFor="let type of accountTypes">{{
+            type
+          }}</option>
+        </select>
       </div>
     </div>
     <div class="row form-row">
@@ -80,14 +81,10 @@
           formControlName="email"
         />
         <span class="animated fadeIn" *ngIf="isSubmitted && email.invalid">
-          <span
-            class="error-text-purp-backdrop block"
-            *ngIf="email.errors.required"
+          <span class="error-text-red block" *ngIf="email.errors.required"
             >Please provide an email address</span
           >
-          <span
-            class="error-text-purp-backdrop block"
-            *ngIf="email.errors.pattern"
+          <span class="error-text-red block" *ngIf="email.errors.pattern"
             >Please provide a valid email address</span
           >
         </span>

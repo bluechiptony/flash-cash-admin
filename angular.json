@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "gopos-utils": {
+    "bizzdesk-support": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/gopos-utils",
+            "outputPath": "dist/bizzdesk-support",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -29,6 +29,8 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/animate.css/animate.min.css",
               "node_modules/ngx-toastr/toastr.css",
+              "node_modules/froala-editor/css/froala_editor.pkgd.min.css",
+              "node_modules/froala-editor/css/froala_style.min.css",
               "src/styles/styles.scss"
             ],
             "scripts": [
@@ -66,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "gopos-utils:build"
+            "browserTarget": "bizzdesk-support:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "gopos-utils:build:production"
+              "browserTarget": "bizzdesk-support:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "gopos-utils:build"
+            "browserTarget": "bizzdesk-support:build"
           }
         },
         "test": {
@@ -107,16 +109,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "gopos-utils:serve"
+            "devServerTarget": "bizzdesk-support:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "gopos-utils:serve:production"
+              "devServerTarget": "bizzdesk-support:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "gopos-utils"
+  "defaultProject": "bizzdesk-support"
 }

@@ -10,8 +10,9 @@ import { MerchantsComponent } from "./merchants/merchants.component";
 import { OverviewComponent } from "./overview/overview.component";
 import { AgentsComponent } from "./agents/agents.component";
 import { UsersComponent } from "./users/users.component";
-import { NewMerchantComponent } from './new-merchant/new-merchant.component';
-import { NewAgentComponent } from './new-agent/new-agent.component';
+import { NewMerchantComponent } from "./new-merchant/new-merchant.component";
+import { NewAgentComponent } from "./new-agent/new-agent.component";
+import { TicketsComponent } from "./tickets/tickets.component";
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
     children: [
       { path: "overview", component: OverviewComponent },
       { path: "", component: OverviewComponent },
+      { path: "tickets", component: TicketsComponent },
       { path: "merchants", component: MerchantsComponent },
       { path: "new-merchant", component: NewMerchantComponent },
       { path: "new-agent", component: NewAgentComponent },

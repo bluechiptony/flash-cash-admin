@@ -39,7 +39,7 @@ export class NewAgentComponent implements OnInit {
       stateId: ["", Validators.required],
       lgaId: ["", Validators.required],
       city: [""],
-      physicalAddress: ["", Validators.required],
+      address: ["", Validators.required],
       businessName: [""],
       businessAddress: [""]
     });
@@ -113,7 +113,7 @@ export class NewAgentComponent implements OnInit {
     return this.appForm.get("city");
   }
   get physicalAddress() {
-    return this.appForm.get("physicalAddress");
+    return this.appForm.get("address");
   }
   get businessName() {
     return this.appForm.get("businessName");
