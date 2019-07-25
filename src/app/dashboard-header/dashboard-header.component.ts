@@ -10,7 +10,9 @@ export class DashboardHeaderComponent implements OnInit {
   loggedInUser: any = this.app.getLoggedInUser();
   constructor(private app: AppService) {}
 
-  ngOnInit() {
-    console.log(this.loggedInUser);
-  }
+  ngOnInit() {}
+
+  logOut = (): void => {
+    this.app.logout();
+  };
 }

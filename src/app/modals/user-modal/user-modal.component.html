@@ -78,13 +78,18 @@
           class="modal-text-box"
           type="text"
           placeholder="Email Address"
-          formControlName="email"
+          formControlName="emailAddress"
         />
-        <span class="animated fadeIn" *ngIf="isSubmitted && email.invalid">
-          <span class="error-text-red block" *ngIf="email.errors.required"
+        <span
+          class="animated fadeIn"
+          *ngIf="isSubmitted && emailAddress.invalid"
+        >
+          <span
+            class="error-text-red block"
+            *ngIf="emailAddress.errors.required"
             >Please provide an email address</span
           >
-          <span class="error-text-red block" *ngIf="email.errors.pattern"
+          <span class="error-text-red block" *ngIf="emailAddress.errors.pattern"
             >Please provide a valid email address</span
           >
         </span>

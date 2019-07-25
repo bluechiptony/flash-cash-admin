@@ -14,7 +14,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatDialogModule } from "@angular/material/dialog";
 // import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 // import { MatRadioModule } from "@angular/material/radio";
-// import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 import "hammerjs";
 
 import { FroalaEditorModule, FroalaViewModule } from "angular-froala-wysiwyg";
@@ -54,6 +54,9 @@ import { SolutionCollectionComponent } from "./collections/solution-collection/s
 import { IssueCategoryCollectionComponent } from "./collections/issue-category-collection/issue-category-collection.component";
 import { SolutionsComponent } from "./solutions/solutions.component";
 import { NewSolutionComponent } from "./modals/new-solution/new-solution.component";
+import { TicketCorrespondenceComponent } from "./ticket-correspondence/ticket-correspondence.component";
+import { TicketResponseModalComponent } from "./modals/ticket-response-modal/ticket-response-modal.component";
+import { TicketCloseModalComponent } from "./modals/ticket-close-modal/ticket-close-modal.component";
 
 @NgModule({
   declarations: [
@@ -89,7 +92,10 @@ import { NewSolutionComponent } from "./modals/new-solution/new-solution.compone
     IssueCategoryCollectionComponent,
     SolutionsComponent,
     SolutionCollectionComponent,
-    NewSolutionComponent
+    NewSolutionComponent,
+    TicketCorrespondenceComponent,
+    TicketResponseModalComponent,
+    TicketCloseModalComponent
   ],
   imports: [
     BrowserModule,
@@ -102,6 +108,7 @@ import { NewSolutionComponent } from "./modals/new-solution/new-solution.compone
     MatSortModule,
     MatPaginatorModule,
     MatDialogModule,
+    MatCheckboxModule,
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot()
   ],
@@ -110,7 +117,9 @@ import { NewSolutionComponent } from "./modals/new-solution/new-solution.compone
     UserModalComponent,
     NewTicketComponent,
     NewIssueCategoryComponent,
-    NewSolutionComponent
+    NewSolutionComponent,
+    TicketResponseModalComponent,
+    TicketCloseModalComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -11,6 +11,8 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
   loginForm: FormGroup;
   loading: boolean;
+  hasLoginError: boolean;
+  loginError: string = "";
 
   constructor(private app: AppService, private builder: FormBuilder) {}
 
@@ -54,6 +56,11 @@ export class LoginComponent implements OnInit {
       },
       error => {
         this.loading = false;
+        this.hasLoginError = true;
+        if (error.error.error !== undefined) {
+          this.loginError = error.error.error;
+        }
+        this.app.processError(error);
         console.log(error);
       }
     );

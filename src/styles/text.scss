@@ -7,6 +7,14 @@ body {
   color: $mainPurpleDarker;
 }
 
+.text-green {
+  color: $appGreen;
+}
+
+.error-text {
+  color: $brightRed;
+}
+
 .center-text {
   text-align: center;
 }
@@ -28,6 +36,11 @@ body {
   font-weight: 600;
 }
 
+.login-title {
+  display: block;
+  font-size: 25px;
+  padding-bottom: 20px;
+}
 .form-prompt {
   display: block;
   font-size: 15px;
@@ -56,4 +69,21 @@ body {
   display: block;
   padding: 2px 0;
   color: rgb(250, 19, 19);
+}
+
+.span-pill {
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 3px;
+}
+.active-ticket {
+  @extend .span-pill;
+  background-color: $pinkRed;
+  color: #fff;
+}
+
+.closed-ticket {
+  @extend .span-pill;
+  background-color: $mainPurple;
+  color: #fff;
 }

@@ -1,41 +1,108 @@
-<div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-12"></div>
-      
-          <div class="col-lg-3" *ngFor="let transaction of transactions">
-            <div class="transaction-box">
-              <div class="transaction-heading elipsis">
-                <span class="transaction-date block"
-                  >{{ transaction?.date }} {{ transaction?.time }}</span
-                >
-                <span class="transaction-ref block">{{
-                  transaction?.reference
-                }}</span>
-                <hr />
-              </div>
-              <div class="transaction-body">
-                <span class="info-prompt block">Service Option</span>
-                <span class="transaction-service-name block">{{
-                  transaction?.merchant?.serviceName
-                }}</span>
-                <span class="info-prompt block">Service Amount</span>
-                <span class="transaction-amount block">
-                  {{ transaction?.amount }}
-                </span>
-                <span class="info-prompt block">Service Charge</span>
-                <span class="transaction-service-charge block">
-                  {{ transaction?.serviceCharge }}
-                </span>
-                <hr />
-              </div>
-              <div class="transaction-footer">
-                <span class="info-prompt block">Transaction Total</span>
-                <span class="transaction-total-amount">
-                  {{ transaction?.totalAmount }}
-                </span>
-              </div>
+<div class="row">
+  <div class="col-lg-12 ">
+    <button
+      class="bg-purp app-button text-white uppercase pull-right inline-margin-left"
+      (click)="openNewSolution()"
+    >
+      new Software issue
+    </button>
+    <input
+      type="text"
+      class="search-text-box pull-right bg-app-darker"
+      placeholder="Search Solutions ... "
+      (keyup)="applyFilter($event.target.value)"
+    />
+  </div>
+  <div class="col-lg-12 vertical-padding">
+    <div class="row animated fadeIn" *ngIf="!loading && hasData">
+      <div
+        class="col-lg-3 animated fadeIn"
+        *ngFor="let issue of displayCollection | async"
+      >
+        <div class="profile-container ellipsis">
+          <div class="profile-data">
+            <div class="data-block">
+              <span class="data-block-label block text-app-main"
+                >Issue Name</span
+              >
+              <span
+                class="data-block-info block"
+                [routerLink]="['/dashboard', 'agent', issue.issueCode]"
+                routerLinkActive="router-link-active"
+                >{{ issue.name }}
+              </span>
             </div>
+            <div class="data-block">
+              <span class="data-block-label block text-app-main"
+                >Solution Code</span
+              >
+              <span class="data-block-info block">{{
+                issue.solutionCode
+              }}</span>
+            </div>
+          </div>
+          <div>
+            <hr />
+            <span class="pull-left"
+              ><i
+                class="fa fa-edit link-up"
+                (click)="openNewSolution(issue)"
+              ></i
+            ></span>
+            <span class="active-status block pull-right"
+              ><i
+                class="fa fa-circle "
+                [ngClass]="{
+                  'text-green': issue.active,
+
+                  'error-text animated heartBeat infinite': !issue.active
+                }"
+              ></i
+            ></span>
           </div>
         </div>
       </div>
-      
+      <div class="col-lg-12">
+        <mat-paginator
+          #paginator
+          [length]="issues.length"
+          [pageSize]="12"
+          [pageSizeOptions]="[12, 24, 48, 96]"
+          [showFirstLastButtons]="true"
+        ></mat-paginator>
+      </div>
+    </div>
+    <div class="loader-holder" *ngIf="loading">
+      <div class="loading">
+        <span>Loading. Please wait.</span>
+      </div>
+    </div>
+    <div class="loader-holder" *ngIf="!loading && !hasData">
+      <div
+        class="empty-state-holder center-text"
+        *ngIf="!loading && !hasError && !hasData"
+      >
+        <img src="assets/imgs/undraw_empty_xct9.svg" height="200" alt="" />
+        <span class="block empty-state-text">No data available</span>
+      </div>
+      <div
+        class="empty-state-holder center-text"
+        *ngIf="!loading && hasError && !hasData"
+      >
+        <img
+          src="assets/imgs/undraw_server_down_s4lk.svg"
+          height="200"
+          alt=""
+        />
+        <span class="block empty-state-text"
+          >Something Went wrong, please try again</span
+        >
+        <div class="centered-flex">
+          <button class="bg-red-gradient login-button text-white uppercase ">
+            Try again
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

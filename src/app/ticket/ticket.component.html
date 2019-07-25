@@ -1,1 +1,85 @@
-<p>ticket works!</p>
+<div class="bg-app container-fluid">
+  <div class="row">
+    <div class="col-lg-10 offset-lg-1">
+      <div class="page-content-holder bg-white animated fadeIn">
+        <div>
+          <span class="route-heading">{{ ticketNumber }}</span>
+        </div>
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-8">
+              <div *ngIf="!loading">
+                <div class="row form-row">
+                  <div class="col-lg-4">
+                    <span class="form-prompt">Customer Name</span>
+                    <span class="">{{ ticket?.customerName }}</span>
+                  </div>
+                  <div class="col-lg-4">
+                    <span class="form-prompt">Customer Email Address</span>
+                    <span class="">{{ ticket?.customerEmailAddress }}</span>
+                  </div>
+                  <div class="col-lg-4">
+                    <span class="form-prompt">Customer Phone</span>
+                    <span class="">{{ ticket?.phoneNumber }}</span>
+                  </div>
+                </div>
+                <div class="row form-row">
+                  <div class="col-lg-4">
+                    <span class="form-prompt">Subject</span>
+                    <span class="">{{ ticket?.subject }}</span>
+                  </div>
+                  <div class="col-lg-4">
+                    <span class="form-prompt">Solution</span>
+                    <span class="">{{ ticket?.solutionName }}</span>
+                  </div>
+                  <div class="col-lg-4">
+                    <span class="form-prompt">Issue Category</span>
+                    <span class="">{{ ticket?.name }}</span>
+                  </div>
+                </div>
+                <div class="row form-row">
+                  <div class="col-lg-6">
+                    <span class="form-prompt">Description</span>
+                    <span class="" [innerHtml]="ticket?.description"></span>
+                  </div>
+                  <div class="col-lg-6">
+                    <span class="form-prompt">Date Created</span>
+                    <span class=""
+                      >{{ ticket?.createdDate | date: "mediumDate" }}
+                    </span>
+                  </div>
+                </div>
+                <div class="row form-row">
+                  <div class="col-lg-6">
+                    <span class="form-prompt">Ticket Status</span>
+                    <span class="active-ticket" *ngIf="!ticket?.resolved"
+                      >Open</span
+                    >
+                    <span class="closed-ticket" *ngIf="ticket?.resolved"
+                      >Closed</span
+                    >
+                    <div class="form-row">
+                      <div *ngIf="!ticket?.resolved">
+                        <button
+                          class="app-button bg-purp uppercase text-white pull-right"
+                          (click)="closeTicket()"
+                        >
+                          Close Ticket
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6"></div>
+                </div>
+              </div>
+              <div *ngIf="loading"></div>
+            </div>
+            <div class="col-lg-4">
+              <app-ticket-correspondence></app-ticket-correspondence>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

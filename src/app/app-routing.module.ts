@@ -15,6 +15,7 @@ import { NewAgentComponent } from "./new-agent/new-agent.component";
 import { TicketsComponent } from "./tickets/tickets.component";
 import { IssuesCategoriesComponent } from "./issues-categories/issues-categories.component";
 import { SolutionsComponent } from "./solutions/solutions.component";
+import { TicketComponent } from "./ticket/ticket.component";
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
       { path: "overview", component: OverviewComponent },
       { path: "", component: OverviewComponent },
       { path: "tickets", component: TicketsComponent },
+      { path: "ticket/:ticketnumber", component: TicketComponent },
       { path: "solutions", component: SolutionsComponent },
       { path: "issue-categories", component: IssuesCategoriesComponent },
       { path: "merchants", component: MerchantsComponent },

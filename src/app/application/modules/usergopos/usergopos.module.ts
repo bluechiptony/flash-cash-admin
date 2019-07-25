@@ -1,10 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule
-  ]
+  imports: [CommonModule]
 })
-export class UsergoposModule { }
+export class UsergoposModule {}
+
+export enum AccountTypes {
+  ADMINISTRATOR = "ADMINISTRATOR",
+  SUPPORT = "SUPPORT",
+  REVIEWER = "REVIEWER"
+}

@@ -1,16 +1,15 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-
-import { AppService } from "src/app/application/services/app.service";
 import { HttpHeaders } from "@angular/common/http";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { AppService } from "src/app/application/services/app.service";
 
 @Component({
-  selector: "app-new-solution",
-  templateUrl: "./new-solution.component.html",
-  styleUrls: ["./new-solution.component.scss"]
+  selector: "app-ticket-response-modal",
+  templateUrl: "./ticket-response-modal.component.html",
+  styleUrls: ["./ticket-response-modal.component.scss"]
 })
-export class NewSolutionComponent implements OnInit {
+export class TicketResponseModalComponent implements OnInit {
   requestUrl: string;
   lgas: any[] = [];
   accountTypes = ["ADMINISTRATOR", "SALES", "REVIEW"];
@@ -20,9 +19,11 @@ export class NewSolutionComponent implements OnInit {
   headers = new HttpHeaders({
     Authorization: this.app.getLoggedInUserToken()
   });
+  loggedInUser = this.app.getLoggedInUser();
   isSubmitted: boolean;
+  ticketNumber: string;
   constructor(
-    private dialogRef: MatDialogRef<NewSolutionComponent>,
+    private dialogRef: MatDialogRef<TicketResponseModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private app: AppService,
     private formBuilder: FormBuilder
@@ -31,44 +32,50 @@ export class NewSolutionComponent implements OnInit {
   ngOnInit() {
     if (this.data.edit) {
       this.solution = this.data.solution;
+    } else {
+      this.ticketNumber = this.data.ticketNumber;
     }
     this.buildForm();
   }
 
   buildForm = () => {
     this.appForm = this.formBuilder.group({
-      name: [this.solution!.firstName, Validators.required]
+      response: [this.solution!.firstName, Validators.required],
+      showCustomer: [false, Validators.required]
     });
   };
   cancel() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   submitForm() {
     this.isSubmitted = true;
     if (this.appForm.valid) {
-      let solution = this.appForm.value;
+      let response = this.appForm.value;
+      response.respondeeEmailAddress = this.loggedInUser.emailAddress;
+      response.respondeeUserCode = this.loggedInUser.userCode;
+      response.ticketNumber = this.ticketNumber;
 
       if (this.data.edit) {
-        this.updateSolution(solution);
+        this.updateSolution(response);
       } else {
-        this.createSolution(solution);
+        this.createResponse(response);
       }
     } else {
       this.app.showWarningMessage("Please review your submission.");
     }
   }
 
-  createSolution(solution: any) {
+  createResponse(response: any) {
     this.loading = true;
-    this.requestUrl = this.app.BASE_URL + "/solutions/create";
-    this.app.makePostRequest(this.requestUrl, solution, this.headers).subscribe(
+    this.requestUrl = this.app.BASE_URL + "/tickets/response/create";
+    this.app.makePostRequest(this.requestUrl, response, this.headers).subscribe(
       data => {
         this.loading = false;
         let response: any = data;
         if (response.success) {
-          this.app.showSuccessMessage("Solution successfully Created");
-          this.dialogRef.close();
+          this.app.showSuccessMessage(response.message);
+          this.dialogRef.close(true);
         } else {
         }
       },
@@ -79,13 +86,13 @@ export class NewSolutionComponent implements OnInit {
     );
   }
 
-  updateSolution(solution: any) {
+  updateSolution(response: any) {
     this.loading = true;
-    this.requestUrl = `${this.app.BASE_URL}/solutions/update/${
+    this.requestUrl = `${this.app.BASE_URL}/responses/update/${
       this.solution.solutionCode
     }`;
-    solution.id = this.solution.id;
-    this.app.makePutRequest(this.requestUrl, solution).subscribe(
+    // response.id = this.response.id;
+    this.app.makePutRequest(this.requestUrl, response).subscribe(
       data => {
         this.loading = false;
         this.app.showSuccessMessage("Solution successfully Updated");
@@ -98,7 +105,10 @@ export class NewSolutionComponent implements OnInit {
     );
   }
 
-  get name() {
-    return this.appForm.get("name");
+  get response() {
+    return this.appForm.get("response");
+  }
+  get showCustomer() {
+    return this.appForm.get("showCustomer");
   }
 }

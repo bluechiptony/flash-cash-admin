@@ -27,7 +27,7 @@
         >
         <mat-cell *matCellDef="let row" class="table-cell"
           ><span class="table-cell-text block ellipsis">{{
-            row.reference
+            row.ticketNumber
           }}</span></mat-cell
         >
       </ng-container>
@@ -37,10 +37,10 @@
           *matHeaderCellDef
           mat-sort-header
           class="table-header-cell uppercase"
-          ><span class="table-header-text">date</span></mat-header-cell
+          ><span class="table-header-text">Subject</span></mat-header-cell
         >
         <mat-cell *matCellDef="let row" class="table-cell"
-          ><span class="table-cell-text">{{ row.date }}</span></mat-cell
+          ><span class="table-cell-text">{{ row.subject }}</span></mat-cell
         >
       </ng-container>
 
@@ -49,11 +49,13 @@
           *matHeaderCellDef
           mat-sort-header
           class="table-header-cell uppercase"
-          ><span class="table-header-text">Service</span></mat-header-cell
+          ><span class="table-header-text"
+            >Customer email</span
+          ></mat-header-cell
         >
         <mat-cell *matCellDef="let row" class="table-cell"
           ><span class="table-cell-text">{{
-            row.merchant?.serviceName
+            row.customerEmailAddress
           }}</span></mat-cell
         >
       </ng-container>
@@ -63,10 +65,12 @@
           *matHeaderCellDef
           mat-sort-header
           class="table-header-cell uppercase"
-          ><span class="table-header-text">Amount</span></mat-header-cell
+          ><span class="table-header-text">Date</span></mat-header-cell
         >
         <mat-cell *matCellDef="let row" class="table-cell"
-          ><span class="table-cell-text">{{ row.amount }}</span></mat-cell
+          ><span class="table-cell-text">{{
+            row.createdDate | date: "mediumDate"
+          }}</span></mat-cell
         >
       </ng-container>
 
@@ -75,11 +79,11 @@
           *matHeaderCellDef
           mat-sort-header
           class="table-header-cell uppercase"
-          ><span class="table-header-text">date</span></mat-header-cell
+          ><span class="table-header-text">Time</span></mat-header-cell
         >
         <mat-cell *matCellDef="let row" class="table-cell"
           ><span class="table-cell-text">{{
-            row.serviceCharge
+            row.createdDate | date: "mediumTime"
           }}</span></mat-cell
         >
       </ng-container>
@@ -89,10 +93,15 @@
           *matHeaderCellDef
           mat-sort-header
           class="table-header-cell uppercase"
-          ><span class="table-header-text">Total</span></mat-header-cell
+          ><span class="table-header-text">Status</span></mat-header-cell
         >
         <mat-cell *matCellDef="let row" class="table-cell"
-          ><span class="table-cell-text">{{ row.totalAmount }}</span></mat-cell
+          ><span class="table-cell-text"
+            ><span class="active-ticket" *ngIf="!row?.resolved">Open</span>
+            <span class="closed-ticket" *ngIf="row?.resolved"
+              >Closed</span
+            ></span
+          ></mat-cell
         >
       </ng-container>
       <!-- start of row header definition -->
@@ -102,7 +111,7 @@
       <!-- Start of row definition -->
       <mat-row
         *matRowDef="let row; columns: displayedTableHeaders"
-        (click)="openTransactionModal(row)"
+        (click)="openTicket(row)"
       ></mat-row>
       <!-- end of row header definition -->
     </mat-table>

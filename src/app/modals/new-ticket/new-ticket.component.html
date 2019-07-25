@@ -10,12 +10,48 @@
     </div>
     <div class="row form-row">
       <div class="col-lg-6 col-xs-12">
+        <span class="form-prompt">Subject * </span>
+        <input
+          class="modal-text-box"
+          formControlName="subject"
+          type="text"
+          placeholder="Subject"
+        />
+        <span class="animated fadeIn" *ngIf="isSubmitted && subject.invalid">
+          <span class="error-text-red block" *ngIf="subject.errors.required"
+            >Please provide a titcket subject</span
+          >
+        </span>
+      </div>
+      <div class="col-lg-6 col-xs-12">
+        <span class="form-prompt">Customer Phone </span>
+        <input
+          class="modal-text-box"
+          formControlName="phoneNumber"
+          type="text"
+          placeholder="e.g. 080233938373"
+        />
+        <span
+          class="animated fadeIn"
+          *ngIf="isSubmitted && phoneNumber.invalid"
+        >
+          <span class="error-text-red block" *ngIf="phoneNumber.errors.required"
+            >Please provide a phone number</span
+          >
+          <span class="error-text-red block" *ngIf="phoneNumber.errors.pattern"
+            >Please provide a valid phone number</span
+          >
+        </span>
+      </div>
+    </div>
+    <div class="row form-row">
+      <div class="col-lg-6 col-xs-12">
         <span class="form-prompt">Customer Name</span>
         <input
           class="modal-text-box"
           formControlName="customerName"
           type="text"
-          placeholder="Customer Name"
+          placeholder="e.g. John Doe"
         />
         <span
           class="animated fadeIn"
@@ -33,7 +69,7 @@
         <input
           class="modal-text-box"
           type="text"
-          placeholder="Email Address"
+          placeholder="e.g mailcustomer@email.com"
           formControlName="customerEmailAddress"
         />
         <span
@@ -59,34 +95,56 @@
     <div class="row form-row">
       <div class="col-lg-6 col-xs-12">
         <span class="form-prompt ">Solution * </span>
-        <select class="select-css bg-app-darker" formControlName="solution">
-          <option value="null" selected disabled>Choose Account Type</option>
-          <option value="{{ type }}" *ngFor="let type of accountTypes">{{
-            type
-          }}</option>
+        <select
+          class="select-css bg-app-darker"
+          formControlName="solution"
+          (change)="getIssues($event.target.value)"
+        >
+          <option value="null" selected disabled>Select Solution</option>
+          <option
+            value="{{ solution.solutionCode }}"
+            *ngFor="let solution of solutions"
+            >{{ solution.solutionName }}</option
+          >
         </select>
+        <span class="animated fadeIn" *ngIf="isSubmitted && solution.invalid">
+          <span class="error-text-red block" *ngIf="solution.errors.required"
+            >Please select a solution</span
+          >
+        </span>
       </div>
       <div class="col-lg-6 col-xs-12">
         <span class="form-prompt ">Issue Category * </span>
-        <select
-          class="select-css bg-app-darker"
-          formControlName="issueCategory"
-        >
+        <select class="select-css bg-app-darker" formControlName="issue">
           <option value="null" selected disabled>Select Issue Category</option>
-          <option value="{{ type }}" *ngFor="let type of accountTypes">{{
-            type
+          <option value="{{ issue.issueCode }}" *ngFor="let issue of issues">{{
+            issue.name
           }}</option>
+          <option value="UNCLASSIFIED">Unclassified</option>
         </select>
+        <span class="animated fadeIn" *ngIf="isSubmitted && issue.invalid">
+          <span class="error-text-red block" *ngIf="issue.errors.required"
+            >Please select an issue</span
+          >
+        </span>
       </div>
     </div>
     <div class="row form-row">
       <div class="col-lg-12 col-xs-12">
-        <span class="form-prompt">Issue Description</span>
+        <span class="form-prompt">Issue Description *</span>
         <textarea
           [froalaEditor]
-          style="min-height: 300px;"
-          formControlName="issueDescription"
+          formControlName="description"
+          placeholder="I did this and that but ..."
         ></textarea>
+        <span
+          class="animated fadeIn"
+          *ngIf="isSubmitted && description.invalid"
+        >
+          <span class="error-text-red block" *ngIf="description.errors.required"
+            >Please provide a description</span
+          >
+        </span>
       </div>
     </div>
 

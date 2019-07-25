@@ -28,6 +28,8 @@ export class SolutionCollectionComponent implements OnInit {
 
   ngOnInit() {
     this.getSolutions();
+    console.log(this.headers);
+    console.log(this.app.getSimpleAuthHeader());
   }
 
   setUpPaginatorAndSorter() {

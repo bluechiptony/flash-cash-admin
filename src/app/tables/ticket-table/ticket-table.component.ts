@@ -8,6 +8,8 @@ import {
 import { AppService } from "src/app/application/services/app.service";
 import { DataService } from "src/app/application/services/data.service";
 import { NewTicketComponent } from "src/app/modals/new-ticket/new-ticket.component";
+import { HttpHeaders, HttpParams } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-ticket-table",
@@ -15,7 +17,13 @@ import { NewTicketComponent } from "src/app/modals/new-ticket/new-ticket.compone
   styleUrls: ["./ticket-table.component.scss"]
 })
 export class TicketTableComponent implements OnInit {
-  transactions: any[];
+  tickets: any[];
+  pageNumber: any = 1;
+  pageSize: any = 20;
+  requesturl: string = this.app.BASE_URL + "/tickets/get";
+  headers = new HttpHeaders({
+    Authorization: this.app.getLoggedInUserToken()
+  });
   displayedTableHeaders: string[] = [
     "reference",
     "date",
@@ -26,13 +34,15 @@ export class TicketTableComponent implements OnInit {
     "total"
     // "status"
   ];
+
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(
     private app: AppService,
     private data: DataService,
-    private dialogRef: MatDialog
+    private dialogRef: MatDialog,
+    private router: Router
   ) {}
 
   hasData: boolean;
@@ -41,9 +51,7 @@ export class TicketTableComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    setTimeout(() => {
-      this.loadDataSource(this.data.transctions);
-    }, 1500);
+    this.getTicketsFromRemote();
   }
 
   /** Sets up Paginator and Sorter for the resultant table*/
@@ -62,6 +70,10 @@ export class TicketTableComponent implements OnInit {
     }
   }
 
+  openTicket = ticket => {
+    this.router.navigate(["/dashboard", "ticket", ticket.ticketNumber]);
+  };
+
   loadDataSource = (data: any[]) => {
     this.loading = false;
     if (data.length > 0) {
@@ -76,6 +88,44 @@ export class TicketTableComponent implements OnInit {
     this.setUpPaginatorAndSorter();
   };
 
+  getTicketsFromRemote = (): void => {
+    this.loading = true;
+    let params = new HttpParams()
+      .set("pagesize", this.pageSize)
+      .set("pagenumber", this.pageNumber);
+
+    this.app
+      .makeGetRequestWithParams(this.requesturl, this.headers, params)
+      .subscribe(
+        data => {
+          let response: any = data;
+          console.log(response);
+
+          if (response.success) {
+            if (Array.isArray(response.data) && response.data.length > 0) {
+              this.loadDataSource(response.data);
+              this.hasData = true;
+              this.hasError = false;
+              this.pageNumber++;
+            } else {
+              this.hasData = false;
+              this.hasError = false;
+            }
+          } else {
+            this.hasData = false;
+            this.hasError = true;
+          }
+        },
+        error => {
+          this.loading = false;
+          console.log(error);
+
+          this.app.processError(error);
+          this.hasData = false;
+          this.hasError = true;
+        }
+      );
+  };
   openNewTicket = (): void => {
     let dialog = this.dialogRef.open(NewTicketComponent, {
       width: "1000px"
