@@ -18,6 +18,7 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import "hammerjs";
 
 import { FroalaEditorModule, FroalaViewModule } from "angular-froala-wysiwyg";
+import { NgMultiSelectDropDownModule } from "ng-multiselect-dropdown";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -57,6 +58,7 @@ import { NewSolutionComponent } from "./modals/new-solution/new-solution.compone
 import { TicketCorrespondenceComponent } from "./ticket-correspondence/ticket-correspondence.component";
 import { TicketResponseModalComponent } from "./modals/ticket-response-modal/ticket-response-modal.component";
 import { TicketCloseModalComponent } from "./modals/ticket-close-modal/ticket-close-modal.component";
+import { TicketAssignmentComponent } from "./ticket-assignment/ticket-assignment.component";
 
 @NgModule({
   declarations: [
@@ -95,7 +97,8 @@ import { TicketCloseModalComponent } from "./modals/ticket-close-modal/ticket-cl
     NewSolutionComponent,
     TicketCorrespondenceComponent,
     TicketResponseModalComponent,
-    TicketCloseModalComponent
+    TicketCloseModalComponent,
+    TicketAssignmentComponent
   ],
   imports: [
     BrowserModule,
@@ -110,7 +113,8 @@ import { TicketCloseModalComponent } from "./modals/ticket-close-modal/ticket-cl
     MatDialogModule,
     MatCheckboxModule,
     FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot()
+    FroalaViewModule.forRoot(),
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [DatePipe, CurrencyPipe, CookieService, AppService, DataService],
   entryComponents: [

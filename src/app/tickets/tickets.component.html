@@ -3,10 +3,12 @@
     <div class="col-lg-10 offset-lg-1">
       <div class="page-content-holder bg-white animated fadeIn">
         <div>
-          <span class="route-heading">Tickets</span>
+          <span class="route-heading capitalize"
+            >{{ tableSetInterpretation }}&nbsp; Tickets</span
+          >
         </div>
         <div>
-          <app-ticket-table></app-ticket-table>
+          <app-ticket-table tableSet="{{ tableSet }}"></app-ticket-table>
         </div>
       </div>
     </div>

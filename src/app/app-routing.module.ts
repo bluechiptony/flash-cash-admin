@@ -30,6 +30,8 @@ const routes: Routes = [
       { path: "overview", component: OverviewComponent },
       { path: "", component: OverviewComponent },
       { path: "tickets", component: TicketsComponent },
+      { path: "my-ticket-assignments", component: TicketsComponent },
+      { path: "open-tickets", component: TicketsComponent },
       { path: "ticket/:ticketnumber", component: TicketComponent },
       { path: "solutions", component: SolutionsComponent },
       { path: "issue-categories", component: IssuesCategoriesComponent },

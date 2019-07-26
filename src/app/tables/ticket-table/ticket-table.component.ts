@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, Input } from "@angular/core";
 import {
   MatTableDataSource,
   MatPaginator,
@@ -10,6 +10,7 @@ import { DataService } from "src/app/application/services/data.service";
 import { NewTicketComponent } from "src/app/modals/new-ticket/new-ticket.component";
 import { HttpHeaders, HttpParams } from "@angular/common/http";
 import { Router } from "@angular/router";
+import { TicketTableSets } from "src/app/application/modules/usergopos/usergopos.module";
 
 @Component({
   selector: "app-ticket-table",
@@ -17,6 +18,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./ticket-table.component.scss"]
 })
 export class TicketTableComponent implements OnInit {
+  @Input("tableSet") tableSet: any;
   tickets: any[];
   pageNumber: any = 1;
   pageSize: any = 20;
@@ -24,6 +26,7 @@ export class TicketTableComponent implements OnInit {
   headers = new HttpHeaders({
     Authorization: this.app.getLoggedInUserToken()
   });
+  loggedInUser = this.app.getLoggedInUser();
   displayedTableHeaders: string[] = [
     "reference",
     "date",
@@ -51,8 +54,23 @@ export class TicketTableComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+    this.setUpRequest();
     this.getTicketsFromRemote();
   }
+
+  setUpRequest = (): void => {
+    if (this.tableSet === TicketTableSets.OPEN) {
+      this.requesturl = this.app.BASE_URL + "/tickets/get/open";
+    } else if (this.tableSet === TicketTableSets.USER) {
+      this.requesturl =
+        this.app.BASE_URL +
+        `/tickets/user/assignments/${this.loggedInUser.userCode}`;
+    } else if (this.tableSet === TicketTableSets.ALL) {
+      this.requesturl = this.app.BASE_URL + "/tickets/get";
+    } else {
+      this.requesturl = this.app.BASE_URL + "/tickets/get";
+    }
+  };
 
   /** Sets up Paginator and Sorter for the resultant table*/
   setUpPaginatorAndSorter(): void {

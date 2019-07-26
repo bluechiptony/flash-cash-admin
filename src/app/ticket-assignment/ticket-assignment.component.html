@@ -1,0 +1,49 @@
+<div class="col-lg-12 spacer-padding">
+  <form [formGroup]="selectForm" (ngSubmit)="handleSubmit()">
+    <div class="row">
+      <div class="col-lg-5">
+        <div class="" style="width:100% ; padding-left:0px;">
+          <span class="form-prompt">Select Users to assign to ticket</span>
+          <ng-multiselect-dropdown
+            name="selectedUsers"
+            [placeholder]="'Select Asignee(s)'"
+            [data]="users"
+            formControlName="selectedUsers"
+            [settings]="dropdownSettings"
+            (onSelect)="onItemSelect($event)"
+          >
+          </ng-multiselect-dropdown>
+          <div
+            class="animated fadeIn"
+            *ngIf="submitted && selectedUsers.invalid"
+          >
+            <span class="error-text-red" *ngIf="selectedUsers.errors.required"
+              >Please select at least one user to assign to this ticket</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <button
+          class="app-button bg-purp uppercase text-white pull-right"
+          type="submit"
+        >
+          Assign Users
+          <span *ngIf="loading">
+            &nbsp; <i class="fa fa-spin fa-spinner"></i>
+          </span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="col-lg-12 spacer-padding" *ngIf="userAssignments.length > 0">
+  <span class="route-heading">Ticket Assignments</span>
+  <div class="spacer-padding-inner">
+    <span
+      class="assignment-pill inline-margin-left"
+      *ngFor="let user of userAssignments"
+      >{{ user.firstName }} {{ user.lastName }}</span
+    >
+  </div>
+</div>

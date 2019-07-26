@@ -12,3 +12,9 @@ export enum AccountTypes {
   SUPPORT = "SUPPORT",
   REVIEWER = "REVIEWER"
 }
+
+export enum TicketTableSets {
+  ALL = "all",
+  OPEN = "open",
+  USER = "user"
+}

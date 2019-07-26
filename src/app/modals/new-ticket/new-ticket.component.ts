@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { UserModalComponent } from "../user-modal/user-modal.component";
 import { AppService } from "src/app/application/services/app.service";
-import { HttpHeaders } from "@angular/common/http";
+import { HttpHeaders, HttpParams } from "@angular/common/http";
 
 @Component({
   selector: "app-new-ticket",
@@ -11,18 +11,37 @@ import { HttpHeaders } from "@angular/common/http";
   styleUrls: ["./new-ticket.component.scss"]
 })
 export class NewTicketComponent implements OnInit {
+  pageSize: any = 0;
+  pageNumber: any = 0;
   requestUrl: string;
   solutions: any[] = [];
   issues: any[] = [];
   headers = new HttpHeaders({
     Authorization: this.app.getLoggedInUserToken()
   });
-  accountTypes = ["ADMINISTRATOR", "SALES", "REVIEW"];
+
   appForm: FormGroup;
   user: any = {};
   loading: boolean;
   isSubmitted: boolean;
   loggedInUser = this.app.getLoggedInUser();
+
+  disabled = false;
+  ShowFilter = false;
+  limitSelection = false;
+  submitted: boolean;
+  selectedItems: any[] = [];
+  dropdownSettings: any = {
+    singleSelection: false,
+    idField: "userCode",
+    textField: "fullName",
+    selectAllText: "Select All",
+    unSelectAllText: "Deselect All",
+    itemsShowLimit: 3,
+    allowSearchFilter: true
+  };
+  users: any[] = [];
+  userFormatted: any[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<UserModalComponent>,
@@ -33,9 +52,8 @@ export class NewTicketComponent implements OnInit {
 
   ngOnInit() {
     this.getSolutions();
-
+    this.getUsersFromRemote();
     this.buildForm();
-    console.log(this.loggedInUser);
   }
 
   buildForm = () => {
@@ -58,6 +76,7 @@ export class NewTicketComponent implements OnInit {
       issue: [null, Validators.required],
       subject: ["", Validators.required],
       solution: [null, Validators.required],
+      selectedUsers: [null, Validators.required],
       description: ["", Validators.required]
     });
   };
@@ -88,7 +107,13 @@ export class NewTicketComponent implements OnInit {
 
         if (response.success) {
           this.app.showSuccessMessage(response.message);
-          this.dialogRef.close();
+          if (
+            Array.isArray(ticket.selectedUsers) &&
+            ticket.selectedUsers.length > 0
+          ) {
+            let ticketNumber = response.data.ticketNumber;
+            this.assignTicket(ticketNumber, ticket.selectedUsers);
+          }
         } else {
           this.app.showWarningMessage("It seems something went wrong");
         }
@@ -117,19 +142,44 @@ export class NewTicketComponent implements OnInit {
   }
 
   //Assigns created ticket to users
-  assignTicket = (ticketNumber: string, asignee: string[]): void => {};
+  assignTicket = (ticketNumber: string, asignees: any[]): void => {
+    let assigneesForm = asignees.map(assignee => {
+      return assignee.userCode;
+    });
+    let assignment = {
+      ticketNumber: ticketNumber,
+      selectedUsers: assigneesForm
+    };
+    this.loading = true;
+    this.requestUrl = this.app.BASE_URL + "/tickets/assign";
+    this.app
+      .makePostRequest(this.requestUrl, assignment, this.headers)
+      .subscribe(
+        data => {
+          this.loading = false;
+          let response: any = data;
+          if (response.success) {
+            this.app.showSuccessMessage(response.message);
+            this.dialogRef.close();
+          } else {
+            this.app.showWarningMessage("It seems something went wrong");
+          }
+        },
+        error => {
+          this.loading = false;
+          this.app.processError(error);
+        }
+      );
+  };
 
   /**
    * Get Issues for solutions
    */
   getIssues = (solutionCode): void => {
-    console.log(solutionCode);
-
     let url = `${this.app.BASE_URL}/issues/get/solution/${solutionCode}`;
     this.app.makeGetRequest(url, this.headers).subscribe(
       data => {
         this.loading = false;
-        console.log(data);
         let response: any = data;
         if (response.success) {
           if (Array.isArray(response.data) && response.data.length > 0) {
@@ -141,7 +191,6 @@ export class NewTicketComponent implements OnInit {
       },
       error => {
         this.loading = false;
-
         this.app.processError(error);
       }
     );
@@ -175,6 +224,48 @@ export class NewTicketComponent implements OnInit {
       }
     );
   };
+
+  getUsersFromRemote = () => {
+    this.loading = true;
+    var url = this.app.BASE_URL + "/user/get";
+    let params = new HttpParams()
+      .set("pagenumber", this.pageNumber)
+      .set("pagesize", this.pageSize);
+    console.log(url);
+
+    this.app.makeGetRequestWithParams(url, this.headers, params).subscribe(
+      data => {
+        this.loading = false;
+        console.log(data);
+        let response: any = data;
+        if (response.success) {
+          if (Array.isArray(response.data) && response.data.length > 0) {
+            this.users = response.data;
+            this.userFormatted = this.users.map(user => {
+              user.fullName = `${user.firstName} ${user.lastName}`;
+            });
+          } else {
+          }
+        } else {
+        }
+      },
+      error => {
+        this.app.processError(error);
+        console.log(error);
+      }
+    );
+  };
+
+  onItemSelect(item: any) {
+    console.log("onItemSelect", item);
+  }
+  onSelectAll(items: any) {
+    console.log("onSelectAll", items);
+  }
+
+  get selectedUsers() {
+    return this.appForm.get("selectedUsers");
+  }
 
   get customerName() {
     return this.appForm.get("customerName");
