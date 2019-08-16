@@ -12,6 +12,7 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatTabsModule } from "@angular/material/tabs";
 // import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 // import { MatRadioModule } from "@angular/material/radio";
 import { MatCheckboxModule } from "@angular/material/checkbox";
@@ -59,6 +60,20 @@ import { TicketCorrespondenceComponent } from "./ticket-correspondence/ticket-co
 import { TicketResponseModalComponent } from "./modals/ticket-response-modal/ticket-response-modal.component";
 import { TicketCloseModalComponent } from "./modals/ticket-close-modal/ticket-close-modal.component";
 import { TicketAssignmentComponent } from "./ticket-assignment/ticket-assignment.component";
+import { UserTableComponent } from "./tables/user-table/user-table.component";
+import { CustomersComponent } from "./customers/customers.component";
+import { CustomerComponent } from "./customer/customer.component";
+import { ValueAcquisitionTableComponent } from "./tables/value-acquisition-table/value-acquisition-table.component";
+import { ValueTransferTableComponent } from "./tables/value-transfer-table/value-transfer-table.component";
+import { ValueCheckoutTableComponent } from "./tables/value-checkout-table/value-checkout-table.component";
+import { TransactionsComponent } from "./transactions/transactions.component";
+import { CustomerDetailsComponent } from "./customer-details/customer-details.component";
+import { UsersOverviewComponent } from "./overview/users-overview/users-overview.component";
+import { TransactionsOverviewComponent } from "./overview/transactions-overview/transactions-overview.component";
+import { SupportOverviewComponent } from "./overview/support-overview/support-overview.component";
+import { CustomersOverviewComponent } from "./overview/customers-overview/customers-overview.component";
+import { TodaysUsersOverviewComponent } from './overview/todays-users-overview/todays-users-overview.component';
+import { TodaysTransactionsOverviewComponent } from './overview/todays-transactions-overview/todays-transactions-overview.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +113,21 @@ import { TicketAssignmentComponent } from "./ticket-assignment/ticket-assignment
     TicketCorrespondenceComponent,
     TicketResponseModalComponent,
     TicketCloseModalComponent,
-    TicketAssignmentComponent
+    TicketAssignmentComponent,
+    UserTableComponent,
+    CustomersComponent,
+    CustomerComponent,
+    ValueAcquisitionTableComponent,
+    ValueTransferTableComponent,
+    ValueCheckoutTableComponent,
+    TransactionsComponent,
+    CustomerDetailsComponent,
+    UsersOverviewComponent,
+    TransactionsOverviewComponent,
+    SupportOverviewComponent,
+    CustomersOverviewComponent,
+    TodaysUsersOverviewComponent,
+    TodaysTransactionsOverviewComponent
   ],
   imports: [
     BrowserModule,
@@ -112,6 +141,7 @@ import { TicketAssignmentComponent } from "./ticket-assignment/ticket-assignment
     MatPaginatorModule,
     MatDialogModule,
     MatCheckboxModule,
+    MatTabsModule,
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
     NgMultiSelectDropDownModule.forRoot()

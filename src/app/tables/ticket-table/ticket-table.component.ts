@@ -118,6 +118,7 @@ export class TicketTableComponent implements OnInit {
         data => {
           let response: any = data;
           console.log(response);
+          this.loading = false;
 
           if (response.success) {
             if (Array.isArray(response.data) && response.data.length > 0) {

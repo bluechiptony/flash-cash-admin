@@ -16,6 +16,9 @@ import { TicketsComponent } from "./tickets/tickets.component";
 import { IssuesCategoriesComponent } from "./issues-categories/issues-categories.component";
 import { SolutionsComponent } from "./solutions/solutions.component";
 import { TicketComponent } from "./ticket/ticket.component";
+import { TransactionsComponent } from "./transactions/transactions.component";
+import { CustomersComponent } from "./customers/customers.component";
+import { CustomerComponent } from "./customer/customer.component";
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -36,10 +39,24 @@ const routes: Routes = [
       { path: "solutions", component: SolutionsComponent },
       { path: "issue-categories", component: IssuesCategoriesComponent },
       { path: "merchants", component: MerchantsComponent },
+      { path: "customers", component: CustomersComponent },
+      { path: "customer/:customercode", component: CustomerComponent },
       { path: "new-merchant", component: NewMerchantComponent },
       { path: "new-agent", component: NewAgentComponent },
       { path: "agents", component: AgentsComponent },
-      { path: "users", component: UsersComponent }
+      { path: "users", component: UsersComponent },
+      {
+        path: "transactions/value-acquisition",
+        component: TransactionsComponent
+      },
+      {
+        path: "transactions/value-transfer",
+        component: TransactionsComponent
+      },
+      {
+        path: "transactions/value-checkout",
+        component: TransactionsComponent
+      }
     ]
   },
   { path: "**", component: FourOFourComponent }

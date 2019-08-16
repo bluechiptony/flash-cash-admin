@@ -1,0 +1,34 @@
+<div class="bg-app container-fluid">
+  <div class="row">
+    <div class="col-lg-10 offset-lg-1">
+      <div class="page-content-holder bg-white animated fadeIn">
+        <div>
+          <span class="route-heading">Customer </span>
+        </div>
+        <div>
+          <app-customer-details></app-customer-details>
+        </div>
+        <div>
+          <!-- <app-merchant-table></app-merchant-table> -->
+          <mat-tab-group>
+            <mat-tab label="Value Acquisition">
+              <div class="tab-padding">
+                <app-value-acquisition-table></app-value-acquisition-table>
+              </div>
+            </mat-tab>
+            <mat-tab label="Value Transfer">
+              <div class="tab-padding">
+                <app-value-transfer-table></app-value-transfer-table>
+              </div>
+            </mat-tab>
+            <mat-tab label="Value Checkout">
+              <div class="tab-padding">
+                <app-value-checkout-table></app-value-checkout-table>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

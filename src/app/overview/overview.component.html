@@ -3,9 +3,32 @@
     <div class="col-lg-10 offset-lg-1">
       <div class="page-content-holder bg-white animated fadeIn">
         <div>
-          <span class="route-heading">Ticket Overview</span>
+          <span class="route-heading">Flash Cash Overview</span>
         </div>
-        <div></div>
+        <div class="row">
+          <div class="col-lg-7">
+            <app-transactions-overview></app-transactions-overview>
+          </div>
+          <div class="col-lg-5">
+            <app-customers-overview></app-customers-overview>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <app-todays-transactions-overview></app-todays-transactions-overview>
+          </div>
+          <div class="col-lg-6">
+            <app-todays-users-overview></app-todays-users-overview>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <app-support-overview></app-support-overview>
+          </div>
+          <div class="col-lg-6">
+            <app-users-overview></app-users-overview>
+          </div>
+        </div>
       </div>
     </div>
   </div>

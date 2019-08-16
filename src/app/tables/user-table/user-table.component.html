@@ -1,0 +1,151 @@
+<div class="row">
+  <div class="col-lg-12">
+    <button
+      class="bg-purp app-button text-white uppercase pull-right inline-margin-left"
+      (click)="openNewCustomerModal()"
+      routerLinkActive="router-link-active"
+    >
+      new Customer
+    </button>
+    <input
+      type="text"
+      class="search-text-box pull-right bg-app-darker"
+      placeholder="Search Transactions ... "
+      (keyup)="applyFilter($event.target.value)"
+    />
+  </div>
+  <div
+    class="col-lg-12 animated fadeIn page-content-height"
+    *ngIf="!loading && hasData"
+  >
+    <mat-table [dataSource]="dataSource" table #sort matSort>
+      <ng-container matColumnDef="reference">
+        <mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          class="table-header-cell uppercase"
+          ><span class="table-header-text">Reference</span></mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" class="table-cell"
+          ><span class="table-cell-text block ellipsis">{{
+            row.reference
+          }}</span></mat-cell
+        >
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          class="table-header-cell uppercase"
+          ><span class="table-header-text">Full name</span></mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" class="table-cell"
+          ><span class="table-cell-text">{{
+            row.customer?.fullName
+          }}</span></mat-cell
+        >
+      </ng-container>
+
+      <ng-container matColumnDef="service">
+        <mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          class="table-header-cell uppercase"
+          ><span class="table-header-text">Email Address</span></mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" class="table-cell"
+          ><span class="table-cell-text">{{
+            row.customer?.emailAddress
+          }}</span></mat-cell
+        >
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          class="table-header-cell uppercase"
+          ><span class="table-header-text"
+            >Total Book Value</span
+          ></mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" class="table-cell"
+          ><span class="table-cell-text">{{ row.amount }}</span></mat-cell
+        >
+      </ng-container>
+
+      <ng-container matColumnDef="serviceCharge">
+        <mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          class="table-header-cell uppercase"
+          ><span class="table-header-text"
+            >date registered</span
+          ></mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" class="table-cell"
+          ><span class="table-cell-text">{{ row.date }}</span></mat-cell
+        >
+      </ng-container>
+
+      <ng-container matColumnDef="total">
+        <mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          class="table-header-cell uppercase"
+          ><span class="table-header-text">Total</span></mat-header-cell
+        >
+        <mat-cell *matCellDef="let row" class="table-cell"
+          ><span class="table-cell-text">{{ row.totalAmount }}</span></mat-cell
+        >
+      </ng-container>
+      <!-- start of row header definition -->
+      <mat-header-row *matHeaderRowDef="displayedTableHeaders"></mat-header-row>
+      <!-- End or row header definition -->
+
+      <!-- Start of row definition -->
+      <mat-row
+        *matRowDef="let row; columns: displayedTableHeaders"
+        (click)="openCustomerPage(row)"
+      ></mat-row>
+      <!-- end of row header definition -->
+    </mat-table>
+    <mat-paginator
+      #paginator
+      class=""
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+    ></mat-paginator>
+  </div>
+
+  <div class="loader-holder" *ngIf="loading">
+    <div class="loading">
+      <span>Loading. Please wait.</span>
+    </div>
+  </div>
+  <div class="loader-holder" *ngIf="!loading && !hasData">
+    <div
+      class="empty-state-holder center-text"
+      *ngIf="!loading && !hasError && !hasData"
+    >
+      <img src="assets/imgs/undraw_empty_xct9.svg" height="200" alt="" />
+      <span class="block empty-state-text">No data available</span>
+    </div>
+    <div
+      class="empty-state-holder center-text"
+      *ngIf="!loading && hasError && !hasData"
+    >
+      <img src="assets/imgs/undraw_server_down_s4lk.svg" height="200" alt="" />
+      <span class="block empty-state-text"
+        >Something Went wrong, please try again</span
+      >
+      <div class="centered-flex">
+        <button class="bg-red-gradient login-button text-white uppercase ">
+          Try again
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,7 @@
   <div class="col-lg-10 offset-lg-1 col-sm-12">
     <nav class="navbar navbar-expand-sm ">
       <a href="" class="navbar-brand"
-        ><img src="assets/imgs/goteller-tight-white.png" height="25" alt=""
+        ><img src="assets/imgs/flash-cash-tight-white.png" height="25" alt=""
       /></a>
 
       <!-- Toggler/collapsibe Button -->
@@ -27,31 +27,58 @@
               >Overview</a
             >
           </li>
-          <!-- <li class="nav-item">
-            <a
-              [routerLink]="['tickets']"
-              routerLinkActive="router-link-active"
-              class="nav-link"
-              >Tickets</a
-            >
-          </li> -->
           <li class="nav-item">
             <a
-              [routerLink]="['issue-categories']"
+              [routerLink]="['customers']"
               routerLinkActive="router-link-active"
               class="nav-link"
-              >Issue Categories</a
+              >Customers</a
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle text-white"
+              href="#"
+              id="navbarDropdownMenuLink2"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              >Transctions</a
+            >
+            <div
+              class="dropdown-menu bg-purp text-white"
+              aria-labelledby="navbarDropdownMenuLink2"
+            >
+              <a
+                class="dropdown-item link-up"
+                [routerLink]="['transactions', 'value-acquisition']"
+                routerLinkActive="router-link-active"
+                >Value Acquisitions</a
+              >
+              <a
+                class="dropdown-item link-up"
+                [routerLink]="['transactions', 'value-transfer']"
+                routerLinkActive="router-link-active"
+                >Value Exchange</a
+              >
+              <a
+                class="dropdown-item link-up"
+                [routerLink]="['transactions', 'value-checkout']"
+                routerLinkActive="router-link-active"
+                >Checkouts</a
+              >
+            </div>
+          </li>
+          <li class="nav-item"></li>
+          <!-- <li class="nav-item">
             <a
               [routerLink]="['solutions']"
               routerLinkActive="router-link-active"
               class="nav-link"
               >Solutions</a
             >
-          </li>
-          <li class="nav-item"></li>
+            <li class="nav-item"></li>
+          </li> -->
 
           <li class="nav-item dropdown">
             <a
@@ -61,18 +88,25 @@
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              >Tickets</a
+              >Support</a
             >
             <div
               class="dropdown-menu bg-purp text-white"
               aria-labelledby="navbarDropdownMenuLink2"
             >
               <a
+                [routerLink]="['issue-categories']"
+                routerLinkActive="router-link-active"
+                class="dropdown-item link-up"
+                >Issue Categories</a
+              >
+              <a
                 class="dropdown-item link-up"
                 [routerLink]="['my-ticket-assignments']"
                 routerLinkActive="router-link-active"
-                >My Ticket Assignements</a
+                >Ticket Assignements</a
               >
+
               <a
                 class="dropdown-item link-up"
                 [routerLink]="['tickets']"

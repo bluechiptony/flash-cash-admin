@@ -49,6 +49,11 @@
   }
 }
 
+.tab-padding {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .app-input {
   display: block;
   box-sizing: border-box;
@@ -248,4 +253,25 @@ input[type="checkbox"]:checked + label {
 .ticket-response-box:hover {
   box-shadow: 0 0 35px 0 rgb(233, 231, 231);
   background-color: #fff;
+}
+
+.data-content {
+  box-sizing: border-box;
+  padding: 20px;
+  border-radius: 30px;
+  .content-title {
+    font-size: 15px;
+    font-weight: bold;
+    display: block;
+  }
+
+  .content-data-large {
+    font-size: 50px;
+    display: block;
+  }
+
+  .content-data {
+    font-size: 30px;
+    display: block;
+  }
 }
