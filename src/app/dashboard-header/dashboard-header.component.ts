@@ -15,4 +15,5 @@ export class DashboardHeaderComponent implements OnInit {
   logOut = (): void => {
     this.app.logout();
   };
+  openProfileModal() {}
 }
